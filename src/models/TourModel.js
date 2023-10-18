@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const tourSchema = mongoose.Schema({
   destination: String,
-  backdropImage: String,
+  backdropImage: {type:String,require:true},
   Title: {type:String,require:true},
   Description: String,
   Duration: String,

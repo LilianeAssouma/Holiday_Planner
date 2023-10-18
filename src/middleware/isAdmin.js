@@ -1,4 +1,4 @@
-import { Request } from "express";
+import express from "express";
 import { User } from "../models/usermodel.js";
 
 
@@ -15,7 +15,7 @@ export const isAdmin = async (req, res, next) => {
           message: "For admins only",
         });
       }
-      res.send("welcome admin");
+      // res.send("welcome admin");
        next();
     } catch (error) {
       res.status(500).json({ message: "Internal server error" });

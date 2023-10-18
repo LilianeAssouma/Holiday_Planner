@@ -9,6 +9,8 @@ const port= 3000;
 const app = express();
 app.use(bodyParser.json());
 app.use("/api/v1", mainRouter);
+
+
 app.use("/", (req,res)=>{
   console.log("this is the app");
   res.status(200).json({

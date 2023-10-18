@@ -3,7 +3,7 @@ import { tourData } from "../../models/TourModel.js";
 export const deleteOne = async (req, res) =>{
     try{
     const { id } = req.params;
-    const deletedIndex = await tourData.findByIdAndDelete(id);
+    const deletedIndex = await tourData.findByIdAndDelete({Title: Title});
     if (!deletedIndex) {
        
                 res.json({ 
