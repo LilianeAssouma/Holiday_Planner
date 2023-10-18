@@ -4,22 +4,17 @@ import { tourData } from "../../models/TourModel.js";
 
 export const addnew = async (req, res) => {
   try {
-    let backdropImage= " ";
+   
     if (req.file) {
       const image = await uploadCloudinary(req.file);
-      console.log(image);
-      backdropImage = image.url;
+       req.body.backdropImage = image
+
+      let newTour = req.body 
+      await tourData.create(newTour);
+
+    res.status(201).json(newTour)
     }
 
-    const newTour = new tourData(req.body);
-
-    await newTour.save();
-    res.status(201).json({newTour,
-      backdropImage: backdropImage,
-    })
-    // res.status(201).json({
-    //   message: "Tour created",
-    // });
   } catch (error) {
     console.log("error", error);
     res.status(409).json({
@@ -34,16 +29,17 @@ export const addMany = async (req, res) => {
 
     if (req.file) {
       const image = await uploadCloudinary(req.file);
-      console.log(image);
-      // tourDetails.forEach(tour => {                //add image url to ech tour data object
-      //   tour.image = image.url;
-      // });
-    }
-    await tourData.insertMany(tourDetails);
+      req.body.backdropImage = image
 
-    res.status(201).json({
-      message: "Tours created",
-    });
+      let newTour = req.body 
+      
+      await tourData.insertMany(tourDetails);
+
+      res.status(201).json({
+        message: "Tours created",
+      });
+    }
+   
 
   } catch (error) {
     console.log("error", error);
