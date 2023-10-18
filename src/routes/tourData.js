@@ -10,11 +10,15 @@ import { getElement } from "../controllers/tour/Read.js";
 
 import { addnew} from "../controllers/tour/Create.js";
 import { addMany} from "../controllers/tour/Create.js";
-import { updateOne } from "../controllers/tour/Update.js";
+
 import { updateMany } from "../controllers/tour/Update.js";
+
 import { deleteOne } from "../controllers/tour/Delete.js";
 import { deleteAll } from "../controllers/tour/Delete.js";
+import { oneUpdated } from "../controllers/tour/Update.js";
+
 import { uploaded } from "../middleware/multer.js";
+
 
 
 
@@ -26,11 +30,13 @@ tourNewsRouter.get('/getElement',getElement)
 
 tourNewsRouter.post('/create',uploaded,verifyToken,isAdmin,addnew);
 tourNewsRouter.post('/addmany',uploaded,isAdmin,addMany);
-tourNewsRouter.patch('/update/:id',updateOne);
-tourNewsRouter.patch('/updateall/:id',updateMany)
+
+tourNewsRouter.put('/update',updateMany);
+
 tourNewsRouter.delete('/delete/:id',deleteOne);
 tourNewsRouter.delete('/deleteall',verifyToken,isAdmin,deleteAll);
 
+tourNewsRouter.put('/',oneUpdated);
 
 
 export default tourNewsRouter;
