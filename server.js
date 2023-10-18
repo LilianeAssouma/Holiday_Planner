@@ -9,14 +9,15 @@ import "dotenv/config";
 const port= 3000;
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+
+app.use(cors())
 app.use("/api/v1", mainRouter);
 
 
 app.get("/", (req,res)=>{
-  console.log("this is the app");
+  console.log("Hello world");
   res.status(200).json({
-    message: "this is the main app server"
+    message: " HELLO "
   })
 });
 

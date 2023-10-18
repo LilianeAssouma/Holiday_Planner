@@ -15,7 +15,7 @@ import { updateMany } from "../controllers/tour/Update.js";
 import { deleteOne } from "../controllers/tour/Delete.js";
 import { deleteAll } from "../controllers/tour/Delete.js";
 import { uploaded } from "../middleware/multer.js";
-import { findOneAndUpdate } from "../controllers/tour/Update.js";
+
 
 
 
@@ -26,11 +26,11 @@ tourNewsRouter.get('/getElement',getElement)
 
 tourNewsRouter.post('/add',uploaded,verifyToken,isAdmin,addnew);
 tourNewsRouter.post('/addmany',uploaded,isAdmin,addMany);
-tourNewsRouter.patch('/update',updateOne);
-tourNewsRouter.patch('/updateall/',updateMany)
+tourNewsRouter.patch('/update/:id',updateOne);
+tourNewsRouter.patch('/updateall/:id',updateMany)
 tourNewsRouter.delete('/delete',deleteOne);
 tourNewsRouter.delete('/deleteall',verifyToken,isAdmin,deleteAll);
 
-tourNewsRouter.put('/',findOneAndUpdate)
+
 
 export default tourNewsRouter;
