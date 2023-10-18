@@ -13,7 +13,7 @@ app.use(cors());
 app.use("/api/v1", mainRouter);
 
 
-app.use("/", (req,res)=>{
+app.get("/", (req,res)=>{
   console.log("this is the app");
   res.status(200).json({
     message: "this is the main app server"
