@@ -19,15 +19,15 @@ import { uploaded } from "../middleware/multer.js";
 
 
 
-tourNewsRouter.get('/view',verifyToken,isAdmin,getAll);
-tourNewsRouter.get('/getone/:id',verifyToken,isAdmin,getOne)
-tourNewsRouter.get('/getElement',verifyToken,isAdmin,getElement)
+tourNewsRouter.get('/',getAll);
+tourNewsRouter.get('/getone/:id',getOne)
+tourNewsRouter.get('/getElement',getElement)
 
 tourNewsRouter.post('/add',uploaded,verifyToken,isAdmin,addnew);
 tourNewsRouter.post('/addmany',uploaded,isAdmin,addMany);
-tourNewsRouter.patch('/update/:id',isAdmin,updateOne);
-tourNewsRouter.patch('/updateall/',isAdmin,updateMany)
-tourNewsRouter.delete('/delete/:id',isAdmin,deleteOne);
+tourNewsRouter.patch('/update/:id',updateOne);
+tourNewsRouter.patch('/updateall/',updateMany)
+tourNewsRouter.delete('/delete/:id',deleteOne);
 tourNewsRouter.delete('/deteteall',isAdmin,deleteAll);
 
 export default tourNewsRouter;
