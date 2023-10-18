@@ -24,11 +24,11 @@ tourNewsRouter.get('/',getAll);
 tourNewsRouter.get('/getone/:id',getOne)
 tourNewsRouter.get('/getElement',getElement)
 
-tourNewsRouter.post('/add',uploaded,verifyToken,isAdmin,addnew);
+tourNewsRouter.post('/create',uploaded,verifyToken,isAdmin,addnew);
 tourNewsRouter.post('/addmany',uploaded,isAdmin,addMany);
 tourNewsRouter.patch('/update/:id',updateOne);
 tourNewsRouter.patch('/updateall/:id',updateMany)
-tourNewsRouter.delete('/delete',deleteOne);
+tourNewsRouter.delete('/delete/:id',deleteOne);
 tourNewsRouter.delete('/deleteall',verifyToken,isAdmin,deleteAll);
 
 

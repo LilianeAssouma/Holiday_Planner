@@ -2,25 +2,44 @@ import { tourData } from "../../models/TourModel.js";
 
 export const deleteOne = async (req, res) =>{
     try{
-        const { fieldName, value } = req.query;
-        let query = {};
-        query[fieldName] = value;
-    const deletedIndex = await tourData.findOneAndDelete(query);
+    const { id } = req.params;
+    const deletedIndex = await tourData.findByIdAndDelete(id);
     if (!deletedIndex) {
        
                 res.json({ 
                     message: 'News not found '
                  } );
                 }
-                res.status(200).json({message:'News successfull deleted',
-              
-            });
+                res.status(200).json({message:'News successfull deleted'});
     }
     catch (error){
         console.log(error.message);
         res.status(500).json(error.message);
       }
 }
+
+
+// export const deleteOne = async (req, res) =>{
+//     try{
+//         const { fieldName, value } = req.query;
+//         let query = {};
+//         query[fieldName] = value;
+//     const deletedIndex = await tourData.findOneAndDelete(query);
+//     if (!deletedIndex) {
+       
+//                 res.json({ 
+//                     message: 'News not found '
+//                  } );
+//                 }
+//                 res.status(200).json({message:'News successfull deleted',
+              
+//             });
+//     }
+//     catch (error){
+//         console.log(error.message);
+//         res.status(500).json(error.message);
+//       }
+// }
 
 export const deleteAll = async (req, res) => {
     try {
