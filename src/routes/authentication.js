@@ -11,6 +11,6 @@ const authRouter =express.Router();
 authRouter.post("/login", login);
 authRouter.post("/signup", signup);    //removed logger middleware
 authRouter.post("/changepassword", verifyToken ,changePassword);
-authRouter.get("/",All);
+authRouter.get("/users",All);
 
 export default authRouter; 
