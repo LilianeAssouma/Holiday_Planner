@@ -2,15 +2,19 @@ import { tourData } from "../../models/TourModel.js";
 
 export const deleteOne = async (req, res) =>{
     try{
-    const { id } = req.params;
-    const deletedIndex = await tourData.findByIdAndDelete({Title: Title});
+        const { fieldName, value } = req.query;
+        let query = {};
+        query[fieldName] = value;
+    const deletedIndex = await tourData.findOneAndDelete(query);
     if (!deletedIndex) {
        
                 res.json({ 
                     message: 'News not found '
                  } );
                 }
-                res.status(200).json({message:'News successfull deleted'});
+                res.status(200).json({message:'News successfull deleted',
+              
+            });
     }
     catch (error){
         console.log(error.message);
@@ -20,11 +24,17 @@ export const deleteOne = async (req, res) =>{
 
 export const deleteAll = async (req, res) => {
     try {
-        let deleteIndex = await tourData.deleteMany({title:req.params.title}); 
-        if (!deleteIndex) {
+        const { fieldName, value } = req.query;
+        let query = {};
+        query[fieldName] = value;
+
+        const deleteIndex = await tourData.deleteMany(query); 
+        if (deleteIndex.deletedCount===0) {
+
             return res.json({ message: 'News not found' });
         }
-        return res.status(200).json({message:'News successfull deleted'});
+         res.status(200).json({message:'successfull deleted',
+         deletedCount: deleteIndex.deletedCount});
     } catch (error) {
         console.error(error.message);
         return res.status(500).json({ error: 'Internal server error' });

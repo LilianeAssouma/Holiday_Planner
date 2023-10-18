@@ -20,9 +20,9 @@ export const getOne =async (req,res)=>{
   }
 
   export const getElement= async (req, res) => {                        //read by element instead of reading by id
-    const { fieldName, value } = req.query;
   
     try {
+      const { fieldName, value } = req.query;
       let query = {};
       query[fieldName] = value;
   

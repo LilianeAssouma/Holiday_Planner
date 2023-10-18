@@ -32,7 +32,7 @@ export const addMany = async (req, res) => {
       req.body.backdropImage = image
 
       let newTour = req.body 
-      
+
       await tourData.insertMany(tourDetails);
 
       res.status(201).json({
@@ -48,3 +48,4 @@ export const addMany = async (req, res) => {
     });
   }
 };
+

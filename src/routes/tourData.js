@@ -27,7 +27,7 @@ tourNewsRouter.post('/add',uploaded,verifyToken,isAdmin,addnew);
 tourNewsRouter.post('/addmany',uploaded,isAdmin,addMany);
 tourNewsRouter.patch('/update/:id',updateOne);
 tourNewsRouter.patch('/updateall/',updateMany)
-tourNewsRouter.delete('/delete/:id',deleteOne);
-tourNewsRouter.delete('/deteteall',isAdmin,deleteAll);
+tourNewsRouter.delete('/delete',deleteOne);
+tourNewsRouter.delete('/deleteall',verifyToken,isAdmin,deleteAll);
 
 export default tourNewsRouter;
