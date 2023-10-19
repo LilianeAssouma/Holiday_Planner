@@ -36,7 +36,7 @@ tourNewsRouter.put('/update',updateMany);
 tourNewsRouter.delete('/delete/:id',deleteOne);
 tourNewsRouter.delete('/deleteall',verifyToken,isAdmin,deleteAll);
 
-tourNewsRouter.put('/',oneUpdated);
+tourNewsRouter.put('/update',oneUpdated);
 
 
 export default tourNewsRouter;

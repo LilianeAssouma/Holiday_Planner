@@ -45,7 +45,7 @@ export const oneUpdated = async (req, res) => {
         });
 
         if (!updatedElement) {
-            return res.status(404).json({ error: 'Element not found' });
+            return res.status(404).json({ error: ' Tour Details not found' });
         }
 
         res.status(200).json(updatedElement);
