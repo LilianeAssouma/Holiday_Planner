@@ -14,26 +14,7 @@ cloudinary.config({
     
 });
 
-export const addnew = async (req, res) => {
-  try {
-   
-    if (req.file) {
-      const image = await uploadCloudinary(req.file);
-       req.body.backdropImage = image
 
-      let newTour = req.body 
-      await tourData.create(newTour);
-
-    res.status(201).json(newTour)
-    }
-
-  } catch (error) {
-    console.log("error", error);
-    res.status(409).json({
-      message: "internal server error",
-    });
-  }
-};
 
 export const addGallery = async (req, res) => {
   try {
