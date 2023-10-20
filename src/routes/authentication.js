@@ -21,6 +21,6 @@ authRouter.post("/changepassword", verifyToken ,changePassword);
 authRouter.get("/users",All);
 authRouter.get('/users/getOne/:email',getUserByEmail);
 authRouter.put('/users/update/:email',updateByEmail);
-authRouter.delete('/users/delete/:email',verifyToken,isAdmin,deleteUser)
+authRouter.delete('/users/delete/:email',deleteUser)
 
 export default authRouter; 
