@@ -28,7 +28,7 @@ tourNewsRouter.get('/',getAll);
 tourNewsRouter.get('/getone/:id',getOne)
 tourNewsRouter.get('/getElement',getElement)
 
-tourNewsRouter.post('/create',uploaded,verifyToken,isAdmin,addnew);
+tourNewsRouter.post('/create',uploaded,addnew);
 tourNewsRouter.post('/addmany',uploaded,isAdmin,addMany);
 
 tourNewsRouter.put('/update',updateMany);

@@ -12,7 +12,7 @@ export const isAdmin = async (req, res, next) => {
   
       if (user?.role !== "admin") {
         return res.status(403).json({
-          message: "For admins only",
+          message: "You cannot delete users unless you are admins",
         });
       }
       // res.send("welcome admin");

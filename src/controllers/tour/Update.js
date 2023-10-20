@@ -42,7 +42,9 @@ export const oneUpdated = async (req, res) => {
         let updatedElement = await tourData.findOneAndUpdate(query, { $set: updateFields }, {
             new: true, // Returns the modified document
             runValidators: true, // Runs update validators on this command
-        });
+        }
+        
+        );
 
         if (!updatedElement) {
             return res.status(404).json({ error: ' Tour Details not found' });
