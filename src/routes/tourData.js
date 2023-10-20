@@ -29,7 +29,7 @@ tourNewsRouter.get('/getone/:id',getOne)
 tourNewsRouter.get('/getElement',getElement)
 
 tourNewsRouter.post('/create',uploaded,addnew);
-tourNewsRouter.post('/createmany',uploaded,addGallery);
+tourNewsRouter.post('/create',uploaded,addGallery);
 
 tourNewsRouter.put('/update',updateMany);
 
