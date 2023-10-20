@@ -12,7 +12,7 @@ import multer from "multer";
 
 
  const upload = multer({ dest: "tour_assets", storage: storage });                // Create Multer instance with specified storage options
-export const uploaded = upload.single('backdropImage')
+export const uploaded = upload.fields([{name:'backdropImage', maxCount: 1},{name:'Gallery', maxCount: 8}])
 
 
 

@@ -9,7 +9,7 @@ import { getOne } from "../controllers/tour/Read.js";
 import { getElement } from "../controllers/tour/Read.js";
 
 import { addnew} from "../controllers/tour/Create.js";
-import { addMany} from "../controllers/tour/Create.js";
+import { addGallery} from "../controllers/tour/Create.js";
 
 import { updateMany } from "../controllers/tour/Update.js";
 
@@ -29,7 +29,7 @@ tourNewsRouter.get('/getone/:id',getOne)
 tourNewsRouter.get('/getElement',getElement)
 
 tourNewsRouter.post('/create',uploaded,addnew);
-tourNewsRouter.post('/addmany',uploaded,isAdmin,addMany);
+tourNewsRouter.post('/createmany',uploaded,addGallery);
 
 tourNewsRouter.put('/update',updateMany);
 

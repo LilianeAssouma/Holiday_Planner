@@ -7,16 +7,15 @@ const tourSchema = mongoose.Schema({
   Duration: String,
   GroupSize: String,
   Price: String,
-  DiscountPercentage: String,
+  Discount: String,
   TourType: String,
   Departure: String,
-  Seats: String,            // seats: Number,
-  Seats: String,          
+  Seats: String,            // seats: Number,        
   fromMonth: String,
   toMonth: String,
   departureTime: String,
   Returntime: String,
-  Gallery: String,             // gallery: [String]
+  Gallery: [Array],             // gallery: [String]
  
 });
 export const tourData = mongoose.model("tourData", tourSchema);
