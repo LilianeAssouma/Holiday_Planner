@@ -39,7 +39,8 @@ const options = {
     servers: [
       {
         url: "http://localhost:3000/",
-      }
+      },
+      {url:"https://holiday-planner-4lnj.onrender.com"}
     ],
   },
   apis: ["./src/routes/*.js"] 
