@@ -2,14 +2,14 @@ import { tourData } from "../../models/TourModel.js";
 export const updateMany = async (req, res)=> {
     try {
         const { fieldName, value } = req.query;
-        const updateFields = req.body; // Assuming you send the fields to be updated in the request body
+        const updateFields = req.body; 
 
         let query = {};
         query[fieldName] = value;
 
         let updatedElement = await tourData.updateMany(query, updateFields, {
-            new: true, // Returns the modified document
-            runValidators: true, // Runs update validators on this command
+            new: true, 
+            runValidators: true, 
         });
 
         if (!updatedElement) {
