@@ -4,8 +4,8 @@ import { User } from "../../models/usermodel.js";
 
 export const newBooking = async (req, res) => {
   try {
-    const { paymentMethod, tourID, userID } = req.body;
-
+    const { paymentMethod, tourID } = req.body;
+    let userID= req.userId
     const user = await User.findById(userID);
 
     if (!user) {
@@ -42,3 +42,36 @@ export const newBooking = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+//get all booking details
+export const BookAll = async(req,res)=>{
+  try {
+    let BookData = await Booking.find();
+    res.status(200).json(BookData ); 
+
+  } catch (error) {
+    console.log("error",error);
+    res.status(409).json({
+      message:"internal server error"
+    })
+  }
+}
+
+//get one booking details
+export const getOneBooking = async (req, res) => {                        //read by element instead of reading by id
+  
+  try {
+    const id = req.params.id;
+    let BookData = await Booking.findById(id);
+
+    if (!BookData) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json(BookData);
+  } catch (error) {
+    console.error("error",error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+
+}
