@@ -30,6 +30,7 @@ import { newBooking } from "../controllers/Booking/BookingCRUD.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { BookAll } from "../controllers/Booking/BookingCRUD.js";
 import { getOneBooking } from "../controllers/Booking/BookingCRUD.js";
+import { isAdmin } from "../middleware/isAdmin.js";
 
 BookingNewsRouter.post('/create',verifyToken,newBooking);
 /**
@@ -106,7 +107,7 @@ BookingNewsRouter.post('/create',verifyToken,newBooking);
  *                 message: "Internal server error"
  */
 
-BookingNewsRouter.get('/view',BookAll);
+BookingNewsRouter.get('/view',verifyToken,isAdmin,BookAll);
 /**
  * @swagger
  * /api/v1/booking/view:
