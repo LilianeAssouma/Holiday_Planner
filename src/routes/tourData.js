@@ -256,27 +256,19 @@ tourNewsRouter.post('/create',uploaded,addGallery);
  *         description: Internal server error
  */
 
-tourNewsRouter.put('/update',uploaded, updateMany);
+tourNewsRouter.put('/update/:tourId',uploaded, updateMany);
 /**
  * @swagger
- * /api/v1/tour/update:
+ * /api/v1/tour/update/{tourId}:
  *   put:
  *     summary: Update a tour
  *     tags: [Tours]
  *     description: Update an existing tour.
  *     parameters:
- *       - in: query
- *         name: fieldName
- *         schema:
- *           type: string
+ *       - in: path
+ *         name: tourId
  *         required: true
- *         description: The field name to identify the tour to update (e.g., "_id" or "destination").
- *       - in: query
- *         name: value
- *         schema:
- *           type: string
- *         required: true
- *         description: The value of the field to match when identifying the tour.
+ *         
  *     requestBody:
  *      content:
  *        multipart/form-data:
@@ -326,7 +318,7 @@ tourNewsRouter.put('/update',uploaded, updateMany);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Tour'
+ *               $ref: '#/components/schemas/tourData'
  *       404:
  *         description: Tour not found or update failed
  *         content:

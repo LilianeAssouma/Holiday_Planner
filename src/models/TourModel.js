@@ -15,7 +15,7 @@ const tourSchema = mongoose.Schema({
   toMonth: String,
   departureTime: String,
   Returntime: String,
-  Gallery: [Array],             // gallery: [String]
+  Gallery: [String],             // gallery: [String]
  
 });
 export const tourData = mongoose.model("tourData", tourSchema);
