@@ -2,10 +2,20 @@
 import { generateToken } from "../../utils/jwtFunctions.js";
 import { hashPassword } from "../../utils/passwordFunctions.js";
 import { User } from "../../models/usermodel.js";
-
+import nodemailer from "nodemailer";
 
 export const signup = async (req, res) => {
+
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'lilyanassoum@gmail.com',
+      pass: 'rsmq lgbm yrhm jjdv'
+    }
+  });
+
     try {
+          
       const user = await User.findOne({email: req.body.email });
   
       if (user) {
@@ -26,8 +36,30 @@ export const signup = async (req, res) => {
        
       });
   
+      // res.status(201).json({
+      //   message: "User registered successfully",
+      //   access_token: token,
+      //   user: {
+      //     email: newUser.email,
+      //     location: newUser.location,
+      //     fullName: newUser.fullName,
+      //     role: newUser.role,
+      //   },
+      // });
+
+      const mailOptions = {
+        from: "lilyanassoum@gmail.com",
+        to: newUser.email,
+        subject: "Welcome to our platform",
+        text: `Hello ${newUser.fullName},\n\nWelcome to our platform! Thank you for registering.`,
+      };
+
+      console.log("Before sending email"); 
+      await transporter.sendMail(mailOptions); // Await the sending of the email
+      console.log("After sending email");
+
       res.status(201).json({
-        message: "User registered successfully",
+        message: "You registered successfully",
         access_token: token,
         user: {
           email: newUser.email,
@@ -35,9 +67,10 @@ export const signup = async (req, res) => {
           fullName: newUser.fullName,
           role: newUser.role,
         },
-      });
+      }); 
+
     } catch (error) { 
-        console.log("error", error);
+      console.error("Error sending email:", error);
       res.status(500).json({
        message:"internal server error",
       });
