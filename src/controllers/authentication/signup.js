@@ -3,16 +3,10 @@ import { generateToken } from "../../utils/jwtFunctions.js";
 import { hashPassword } from "../../utils/passwordFunctions.js";
 import { User } from "../../models/usermodel.js";
 import nodemailer from "nodemailer";
+import { transporter } from "../../utils/Creditentials.js"; 
+
 
 export const signup = async (req, res) => {
-
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'lilyanassoum@gmail.com',
-      pass: 'rsmq lgbm yrhm jjdv'
-    }
-  });
 
     try {
           
@@ -55,7 +49,16 @@ export const signup = async (req, res) => {
       };
 
       console.log("Before sending email"); 
-      await transporter.sendMail(mailOptions); // Await the sending of the email
+      
+       // Await the sending of the email
+      await transporter.sendMail(mailOptions, (error,info)=>{
+        if (error) {
+          console.log('email sending failed',error);
+        } else {
+          console.log('email sent ',info.response);
+        }
+      }); 
+     
       console.log("After sending email");
 
       res.status(201).json({

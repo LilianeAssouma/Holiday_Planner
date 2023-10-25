@@ -1,8 +1,9 @@
-// import express from "express";
-// import { transporter } from "../controllers/Contact/contactCRUD"; 
+import express from "express";
 
-// const ContactRouter =express.Router();
+import {submitForm} from "../controllers/Contact/contactCRUD.js";
 
-// ContactRouter.post('/submit', contactController.submitForm);
+ const ContactRouter =express.Router();
 
-// export default ContactRouter;
+ ContactRouter.post('/submit',submitForm);
+
+ export default ContactRouter;

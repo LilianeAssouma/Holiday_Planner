@@ -1,12 +1,20 @@
+
+import { Mongoose } from "mongoose";
 import { Booking } from "../../models/BookingModel.js";
 import { tourData } from "../../models/TourModel.js";
 import { User } from "../../models/usermodel.js";
+import nodemailer from "nodemailer";
+import { transporter } from "../../utils/Creditentials.js"; 
 
 export const newBooking = async (req, res) => {
-  try {
+
+   try {
     const { paymentMethod, tourID } = req.body;
-    let userID= req.userId
-    const user = await User.findById(userID);
+   let userID= req.userId;
+
+    const userIdObject = mongoose.Types.ObjectId(userID);
+    console.log("User ID:",userIdObject);
+    const user = await User.findById(userIdObject);
 
     if (!user) {
       return res.status(404).json({
@@ -14,7 +22,8 @@ export const newBooking = async (req, res) => {
       });
     }
 
-    const tour = await tourData.findById(tourID); // Find the tour and user based on their IDs
+    console.log("Tour ID:", tourID);
+   const tour = await tourData.findById(tourID); // Find the tour and user based on their IDs
 
     if (!tour) {
       return res.status(404).json({ message: "Tour  not found" });
@@ -26,6 +35,23 @@ export const newBooking = async (req, res) => {
     });
     // console.log("tourID:", tour);
     // console.log("userID:", user);
+
+const mailOptions = {
+        from: "lilyanassoum@gmail.com",
+        to: user.email,
+        subject: "Booking Confirmation Message",
+        text: `Hello ${user.fullName},\n\nBooking successfully created! Thank you for booking with us.`,
+      };
+
+      console.log("Before sending email"); 
+      await transporter.sendMail(mailOptions, (error,info)=>{
+        if (error) {
+          console.log('email sending failed',error);
+        } else {
+          console.log('email sent ',info.response);
+        }
+      }); // Await the sending of the email
+      console.log("After sending email");
 
     await newBooking.save();
     res

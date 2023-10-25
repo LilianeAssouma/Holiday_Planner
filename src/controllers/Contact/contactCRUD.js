@@ -1,16 +1,9 @@
-import { Contact } from "../../models/contactModel";
-import {nodemailer} from 'nodemailer';
+import { Contact } from "../../models/contactModel.js";
+import nodemailer from "nodemailer";
+import { transporter } from "../../utils/Creditentials.js"; 
 
 
-export const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'your-email@gmail.com', // Your email address
-    pass: 'your-email-password', // Your email password
-  },
-});
-
-exports.submitForm = async (req, res) => {
+export const submitForm = async (req, res) => {
   const { name, email, message } = req.body;
 
   try {
@@ -20,9 +13,9 @@ exports.submitForm = async (req, res) => {
 
     // Send email notification
     const mailOptions = {
-      from: 'your-email@gmail.com',
-      to: 'recipient@example.com', // Recipient's email address
-      subject: 'New Contact Form Submission',
+      from: user.email,
+      to: "lilyanassoum@gmail.com" ,
+      subject: 'Contact Form Submission',
       text: `Name: ${name}\nEmail: ${email}\nMessage: ${message}`,
     };
 

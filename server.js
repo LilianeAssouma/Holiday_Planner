@@ -10,7 +10,6 @@ import swaggerJSDoc from "swagger-jsdoc";
 import mainRouter from "./src/routes/index.js"
 import "dotenv/config";
 
-
 const port= 3000;
 const app = express();
 app.use(bodyParser.json());
