@@ -324,7 +324,7 @@
  *       - in: path
  *         name: id
  *         required: true
- *         description: The email of the user to delete
+ *         description: Id of the user to delete
  *         schema:
  *           type: string
  *     security:
