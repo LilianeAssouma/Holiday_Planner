@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import swaggerUI from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
+// import contactController from './contactController';
 
 import mainRouter from "./src/routes/index.js"
 import "dotenv/config";
@@ -16,6 +17,8 @@ app.use(bodyParser.json());
 
 app.use(cors())
 app.use("/api/v1", mainRouter);
+// app.use(contactController);
+
 // app.get("/", (req,res)=>{
 //   console.log("Hello world");
 //   res.status(200).json({

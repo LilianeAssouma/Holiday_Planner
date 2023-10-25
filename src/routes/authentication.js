@@ -316,13 +316,13 @@
 
 /**
  * @swagger
- * /api/v1/auth/users/delete/{email}:
+ * /api/v1/auth/users/delete/{id}:
  *  delete:
- *     summary: Delete user by email
+ *     summary: Delete user by id
  *     tags: [Authentication]
  *     parameters:
  *       - in: path
- *         name: email
+ *         name: id
  *         required: true
  *         description: The email of the user to delete
  *         schema:
@@ -331,7 +331,7 @@
  *       - BearerAuth: []
  *     responses:
  *       200:
- *          description: User updated successfully
+ *          description: User deleted successfully
  *          content:
  *           application/json:
  *             schema:
@@ -364,7 +364,7 @@ authRouter.post("/changepassword", verifyToken ,changePassword);
 authRouter.get("/users",verifyToken,isAdmin,All);
 authRouter.get('/users/getOne',getUserByAny);
 authRouter.put('/users/update/:id',updateById);
-authRouter.delete('/users/delete/:email',verifyToken,deleteUser)
+authRouter.delete('/users/delete/:id',verifyToken,deleteUser)
 
 export default authRouter; 
 
