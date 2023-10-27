@@ -361,10 +361,10 @@ authRouter.post("/login", login);
 authRouter.post("/signup", signup);    //removed logger middleware
 authRouter.post("/changepassword", verifyToken ,changePassword);
 
-authRouter.get("/users",verifyToken,isAdmin,All);
+authRouter.get("/users",isAdmin,All);
 authRouter.get('/users/getOne',getUserByAny);
 authRouter.put('/users/update/:id',updateById);
-authRouter.delete('/users/delete/:id',verifyToken,deleteUser)
+authRouter.delete('/users/delete/:id',deleteUser)
 
 export default authRouter; 
 
