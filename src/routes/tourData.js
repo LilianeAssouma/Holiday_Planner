@@ -126,9 +126,6 @@ tourNewsRouter.get('/getElement',getElement)
  *         name: value
  *         schema:
  *            type: string
- *         
- *         required: true
- *         description: The value of the field to search for
  *     responses:
  *       200:
  *         description: Tour found

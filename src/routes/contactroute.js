@@ -38,10 +38,8 @@
  *                 type: string
  *                 description: Message  
  *             required:
- *               - name
  *               - email
  *               - message
- *               - phone
  *     responses:
  *       200:
  *         description: Form submitted successfully.
