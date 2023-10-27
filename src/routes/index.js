@@ -11,6 +11,6 @@ const mainRouter = express.Router();
 mainRouter.use("/auth",authRouter);
 mainRouter.use("/tour",tourNewsRouter);
 mainRouter.use("/booking",BookingNewsRouter);
-mainRouter.use("/",ContactRouter);
+mainRouter.use("/contact",ContactRouter);
 
 export default mainRouter;

@@ -8,9 +8,8 @@ export const updateMany = async (req, res) => {
     const {tourId} = req.params; // Assuming the tour ID is passed in the request parameters
   const updatedTourDetails = req.body;
   console.log('Tour ID:', tourId);
-    // Check if the tour exists
-    let existingTour = await tourData.findById(tourId);
 
+    let existingTour = await tourData.findById(tourId);
     if (!existingTour) {
       return res.status(404).json({
         message: 'Tour not found',
