@@ -1,24 +1,21 @@
 
 import { User } from "../../models/usermodel.js";
 
-//get all users in the database
-export const All = async(req,res)=>{
-  try {
-    let userData = await User.find();
-    res.status(200).json(userData); 
+import { catchAsync } from "../../utils/catchAsync.js";
+import AppError from "../../utils/appError.js";
 
-  } catch (error) {
-    console.log("error",error);
-    res.status(409).json({
-      message:"internal server error"
-    })
-  }
+//get all users in the database
+export const All = catchAsync(async(req,res, next)=>{
+  let userData = await User.find();
+
+  res.status(200).json(userData); 
+
 }
+)
 
 //find one user in the database by email
-export const getUserByAny = async (req, res) => {                        //read by element instead of reading by id
+export const getUserByAny = catchAsync(async (req, res, next) => {                        //read by element instead of reading by id
   
-  try {
     const { fieldName, value } = req.query;
     let query = {};
     query[fieldName] = value;
@@ -26,21 +23,19 @@ export const getUserByAny = async (req, res) => {                        //read 
     let userData = await User.findOne(query);
 
     if (!userData) {
-      return res.status(404).json({ error: 'User not found' });
+      return next(new AppError('No user found with that address', 404));
     }
+    // if (!userData) {
+    //   return res.status(404).json({ error: 'User not found' });
+    // }
 
     res.status(200).json(userData);
-  } catch (error) {
-    console.error("error",error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-
-}
+  
+})
 
 
 //update users by email
-export const updateById = async (req, res) => {
-  try {
+export const updateById = catchAsync(async (req, res, next) => {
     const id = req.params.id;
     const updatedFields = req.body;
 
@@ -55,16 +50,12 @@ export const updateById = async (req, res) => {
     }
     
     return res.status(200).json(updatedUser);
-  } catch (error) {
-    console.error("Error updating user:", error.message);
-    return res.status(500).json({ error: 'Internal Server Error' });
   }
-};
+)
 
 
 //delete users
-export const deleteUser = async (req,res)=>{
-  try{
+export const deleteUser = catchAsync(async (req,res, next)=>{
     const { id} = req.params;
     const deletedIndex = await User.findByIdAndDelete(id);
     if (!deletedIndex) {
@@ -75,8 +66,4 @@ export const deleteUser = async (req,res)=>{
                 }
                 res.status(200).json({message:'User successfull deleted'});
     }
-    catch (error){
-        console.log(error.message);
-        res.status(500).json(error.message);
-      }
-}
+)
