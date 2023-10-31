@@ -21,9 +21,9 @@ app.use(cors())
 app.use("/api/v1", mainRouter);
 
 //handle Router
-app.all('*', (req, res, next) => {
-  next(new AppError(`can't find ${req.originalUrl} on this server!`, 404));
-});
+// app.all('*', (req, res, next) => {
+//   next(new AppError(`can't find ${req.originalUrl} on this server!`, 404));
+// });
 
 app.use(globalControllerHandler);
 

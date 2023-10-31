@@ -45,10 +45,12 @@ export const updateById = catchAsync(async (req, res, next) => {
       { new: true }
     );
 
-    if (!updatedUser) {
-      return res.status(404).json({ error: 'User not found' });
+    // if (!updatedUser) {
+    //   return res.status(404).json({ error: 'User not found' });
+    // }
+    if (!userData) {
+      return next(new AppError('No user found with that address', 404));
     }
-    
     return res.status(200).json(updatedUser);
   }
 )
@@ -59,10 +61,12 @@ export const deleteUser = catchAsync(async (req,res, next)=>{
     const { id} = req.params;
     const deletedIndex = await User.findByIdAndDelete(id);
     if (!deletedIndex) {
-        // NewsLetter.splice(newsIndex, 1);
-                res.json({ 
-                    message: 'User not found '
-                 } );
+
+      if (!deletedIndex) {
+        
+        return next(new AppError('No user found with that address', 404));
+      }
+      //res.json({ message: 'User not found '} );
                 }
                 res.status(200).json({message:'User successfull deleted'});
     }
