@@ -18,7 +18,7 @@ export const newBooking = async (req, res) => {
     
     const tourID = req.tourId;
     const tour = await tourData.findById(tourID);
-    console.lod(`Tour ID: ${tourID}`);
+    console.log(`Tour ID: ${tourID}`);
 
     if (!tour) {
       console.error(`Tour not found for ID: ${tourID}`);
