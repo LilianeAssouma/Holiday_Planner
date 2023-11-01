@@ -14,28 +14,28 @@
  *           type: string
  *         message:
  *           type: string
- *    
  */
+
 /**
  * @swagger
  * /api/v1/contact/submit:
  *   post:
  *     summary: Form
  *     tags: [Contact]
- *     description:  contact form.
+ *     description: Contact form submission.
  *     requestBody:
  *       required: true
  *       content:
- *        multipart/form-data:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               email:
  *                 type: string
- *                 description: Email 
+ *                 description: Email
  *               message:
  *                 type: string
- *                 description: Message  
+ *                 description: Message
  *             required:
  *               - email
  *               - message
@@ -55,21 +55,29 @@
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   description: Error message indicating the contact was not found.
+ *               oneOf:
+ *                 - $ref: '#/components/schemas/ErrorContactNotFound'
  *       500:
  *         description: Internal server error.
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Error message indicating an internal server error occurred during form submission.
+ *               oneOf:
+ *                 - $ref: '#/components/schemas/ErrorInternalServer'
+ *
+ *   ErrorContactNotFound:
+ *     type: object
+ *     properties:
+ *       error:
+ *         type: string
+ *         description: Error message indicating the contact was not found.
+ *
+ *   ErrorInternalServer:
+ *     type: object
+ *     properties:
+ *       message:
+ *         type: string
+ *         description: Error message indicating an internal server error occurred during form submission.
  */
 
 
@@ -100,7 +108,7 @@ import { contactData } from "../controllers/Contact/contactCRUD.js";
  *         content:
  *           application/json:
  *             schema:
- *               type: array
+ *               type: object
  *               items:
  *                   $ref: '#/components/schemas/Contact'
  *       

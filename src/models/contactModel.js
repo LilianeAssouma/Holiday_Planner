@@ -3,11 +3,13 @@ import mongoose from 'mongoose';
 const contactSchema = new mongoose.Schema({
  
   email: {
-    type: String
+    type: String,
+    required: true
   },
  
   message: {
-    type: String
+    type: String,
+    required: true
   },
 });
 
