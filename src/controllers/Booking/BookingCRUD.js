@@ -26,7 +26,7 @@ console.log('userId',userID);
     if (!tour) {
       return res.status(404).json({ message: "Tour not found" });
     }
-console.log('tourId',tourID);
+// console.log('tourId',tourID);
 
     const newBooking = new Booking({
       tourID: tour._id,
