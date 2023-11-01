@@ -11,16 +11,7 @@ const bookingSchema = new mongoose.Schema({
     ref: 'User',                              //  the User model
     required: true
   },
-  Date: {
-   type:String 
-  },
-Status:{
-  type:String ,
-  default: false
-},
-NumberOfTicket:{
-  type:String  
-},
+
   isPaid: {
     type: Boolean,
     default: false
