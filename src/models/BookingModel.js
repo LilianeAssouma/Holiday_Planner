@@ -16,7 +16,7 @@ const bookingSchema = new mongoose.Schema({
   },
 Status:{
   type:String ,
-  default: 'pending'
+  default: false
 },
 NumberOfTicket:{
   type:String  
