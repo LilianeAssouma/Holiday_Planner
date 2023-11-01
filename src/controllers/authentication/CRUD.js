@@ -22,12 +22,12 @@ export const getUserByAny = catchAsync(async (req, res, next) => {              
 
     let userData = await User.findOne(query);
 
-    if (!userData) {
-      return next(new AppError('No user found with that address', 404));
-    }
     // if (!userData) {
-    //   return res.status(404).json({ error: 'User not found' });
+    //   return next(new AppError('No user found with that address', 404));
     // }
+    if (!userData) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
     res.status(200).json(userData);
   

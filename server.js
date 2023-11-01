@@ -69,10 +69,15 @@ app.use(
 
 
 
-mongoose.connect(process.env.DB_CONNECTION_PROD).then((res) => {
+mongoose.connect(process.env.DB_CONNECTION_PROD)
+.then((res) => {
     console.log("connected");
   });
 
 app.listen(port, () => {
     console.log(`server is running on http://localhost:${port}`);
   });
+//unhandled rejection
+  process.on('unhandledRejection', err =>{
+    console.log(err.name, err.message);
+  })
