@@ -18,10 +18,6 @@
  *           type: string
  *         paymentMethod:
  *           type: string
- *         whoBooked:
- *           type: string
- *         tourBooked:
- *           type: string
  *         date:
  *           type: string
  *         format: date
@@ -63,10 +59,6 @@ BookingNewsRouter.post('/create',verifyToken,newBooking);
  *               paymentMethod:
  *                 type: string
  *               tourID:
- *                 type: string
- *               whoBooked:
- *                 type: string
- *               tourBooked:
  *                 type: string
  *               date:
  *                 type: string

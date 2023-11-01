@@ -5,7 +5,7 @@ import { User } from "../../models/usermodel.js";
 
 export const newBooking = async (req, res) => {
   try {
-    const { paymentMethod, whoBooked, tourBooked, date, status, numberOfTickets } = req.body;
+    const { paymentMethod, date, status, numberOfTickets } = req.body;
     const userID = req.userId;
 
     const user = await User.findById(userID);
@@ -27,8 +27,6 @@ export const newBooking = async (req, res) => {
     const newBooking = new Booking({
       tourID: tour._id,
       userID: user._id,
-      whoBooked: whoBooked, 
-      tourBooked: tourBooked, 
       date: date,
       status: status,
       numberOfTickets: numberOfTickets,

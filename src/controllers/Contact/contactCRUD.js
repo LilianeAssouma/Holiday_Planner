@@ -50,30 +50,30 @@ export const submitForm = async (req, res) => {
 //     // if (!existingEmail) {
 //     //   return res.status(401).json({ error: 'Email not found' });
 //     // }
-//     const {  message } = req.body;
-//     const email = req.body.email; 
+    const {  message } = req.body;
+    const email = req.body.email; 
 
-//     console.log(' email:', email);
+    console.log(' email:', email);
 
-//     const newContact = await Contact.create({  email, message });
+    const newContact = await Contact.create({  email, message });
 
 
-//    console.log(email);
+   console.log(email);
 
-//     const mailOptions = {
-//       to: newContact.email,
-//       from: "lilyanassoum@gmail.com" ,
-//       subject: 'Contact Form Submission',
-//       text: `Email: ${email}\nMessage: ${message}`,
-//     };
+    const mailOptions = {
+      to: newContact.email,
+      from: "lilyanassoum@gmail.com" ,
+      subject: 'Contact Form Submission',
+      text: `Email: ${email}\nMessage: ${message}`,
+    };
 
-//     transporter.sendMail(mailOptions, (error, info) => {
-//       if (error) {
-//         console.error('Email error:', error);
-//       } else {
-//         console.log('Email sent:', info.response);
-//       }
-//     });
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Email error:', error);
+      } else {
+        console.log('Email sent:', info.response);
+      }
+    });
 
     res.status(200).json({ message: 'Form submitted successfully!' });
   } catch (error) {
