@@ -18,6 +18,17 @@
  *           type: string
  *         paymentMethod:
  *           type: string
+ *         whoBooked:
+ *           type: string
+ *         tourBooked:
+ *           type: string
+ *         date:
+ *           type: string
+ *         format: date
+ *         status:
+ *           type: string
+ *         numberOfTickets:
+ *           type: integer
  *       
  */
 
@@ -35,77 +46,116 @@ import { isAdmin } from "../middleware/isAdmin.js";
 BookingNewsRouter.post('/create',verifyToken,newBooking);
 /**
  * @swagger
- *   /api/v1/booking/create:
- *     post:
- *       summary: Create a new booking
- *       tags:
- *         - Booking
- *       security:
- *         - BearerAuth: []
- *       requestBody:
- *         description: Booking details
- *         required: true
+ * /api/v1/booking/create:
+ *   post:
+ *     summary: Create a new booking
+ *     tags:
+ *       - Booking
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               paymentMethod:
+ *                 type: string
+ *               tourID:
+ *                 type: string
+ *               whoBooked:
+ *                 type: string
+ *               tourBooked:
+ *                 type: string
+ *               date:
+ *                 type: string
+ *                 format: date
+ *               status:
+ *                 type: string
+ *               numberOfTickets:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         description: Booking successfully created
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 tourID:
+ *                 message:
  *                   type: string
- *                 userID:
- *                   type: string
- *                 isPaid:
- *                   type: boolean
- *                 paymentMethod:
- *                   type: string
- *               example:
- *                 tourID: "653768cb34bea818ffa336c3"
- *                 userID: "18ffa336c3"
- *                 isPaid: false
- *                 paymentMethod: "Credit"
- *       responses:
- *         201:
- *           description: Booking created successfully
- *           content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   message:
- *                     type: string
- *                     $ref: '#/components/schemas/Booking'
- *               example:
- *                 message: "Booking created successfully"
- *                 tourDetails:
- *                   tourID: "653768cb34bea818ffa336c3"
- *                   userID: "18ffa336c3"
- *                   isPaid: false
- *                   paymentMethod: "Credit"
- *         400:
- *           description: Bad request, missing required parameters
- *           content:
- *             application/json:
- *               example:
- *                 message: "Bad request, missing required parameters"
- *         401:
- *           description: Unauthorized, missing or invalid authentication token
- *           content:
- *             application/json:
- *               example:
- *                 message: "Unauthorized, missing or invalid authentication token"
- *         409:
- *           description: Conflict, tour creation failed
- *           content:
- *             application/json:
- *               example:
- *                 message: "Conflict, tour creation failed"
- *         500:
- *           description: Internal server error
- *           content:
- *             application/json:
- *               example:
- *                 message: "Internal server error"
+ *                 user:
+ *                   $ref: '#/definitions/User' # Reference to User object definition
+ *                 tour:
+ *                   $ref: '#/definitions/tourData' # Reference to Tour object definition
+ *                 booking:
+ *                   $ref: '#/definitions/Booking' # Reference to Booking object definition
+ *       400:
+ *         description: Bad request
+ *       404:
+ *         description: Not found
+ *       500:
+ *         description: Internal Server Error
+ *
+ * definitions:
+ *   User:
+ *     type: object
+ *     properties:
+ *       email:
+ *         type: string
+ *       password:
+ *         type: string
+ *       fullName:
+ *         type: string
+ *       location:
+ *         type: string
+ *   tourData:
+*      type: object
+*      properties:
+*        destination:
+*          type: string
+*        backdropImage:
+*          type: string
+*        Title:
+*          type: string
+*        Description:
+*          type: string
+*        Duration:
+*          type: string
+*        GroupSize:
+*          type: string
+*        Price:
+*          type: string
+*        Discount:
+*          type: string
+*        TourType:
+*          type: string
+*        Departure:
+*          type: string
+*        Seats:
+*          type: string
+*        fromMonth:
+*          type: string
+*        toMonth:
+*          type: string
+*        departureTime:
+*          type: string
+*        ReturnTime:
+*          type: string
+*        Gallery:
+*          type: array
+*        items:
+*          type: string
+ *   Booking:
+ *     type: object
+ *     properties:
+ *       // Booking properties here
+ *
+ * 
  */
+
+
 
 BookingNewsRouter.get('/view',BookAll);
 /**

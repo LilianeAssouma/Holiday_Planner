@@ -339,9 +339,9 @@ tourNewsRouter.put('/update',uploaded, updateMany);
  */
 
 
-tourNewsRouter.delete('/delete/:id',deleteOne);
+//tourNewsRouter.delete('/delete/:id',deleteOne);
 
-tourNewsRouter.delete('/deleteall',deleteAll);
+//tourNewsRouter.delete('/deleteall',deleteAll);
 /**
  * @swagger
  * /api/v1/tour/deleteAll:
