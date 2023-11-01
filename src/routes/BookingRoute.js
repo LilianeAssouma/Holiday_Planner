@@ -52,7 +52,7 @@ BookingNewsRouter.post('/create',verifyToken,newBooking);
  *         description: Booking details
  *         required: true
  *         content:
- *           application/json:
+ *           multipart/form-data:
  *             schema:
  *               type: object
  *               properties:
