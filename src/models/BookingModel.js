@@ -11,7 +11,6 @@ const bookingSchema = new mongoose.Schema({
     ref: 'User',                              //  the User model
     required: true
   },
-
   isPaid: {
     type: Boolean,
     default: false

@@ -150,41 +150,69 @@
  *             example:
  *               message: Internal server error
  */
+
 /**
  * @swagger
  * /api/v1/auth/changepassword:
  *   post:
- *     summary: Change Password
+ *     summary: Change user password
  *     tags: 
  *       - Authentication
- *     description: Change the password of an authenticated user.
  *     security:
- *       - bearerAuth: []
+ *       - BearerAuth: []
  *     requestBody:
+ *       description: User creditentials
  *       required: true
  *       content:
- *         multipart/form-data:
- *          schema:
- *           type: object
- *           properties:
- *             currentPassword:
- *               type: string
- *               description: Current password of the user.
- *             newPassword:
- *               type: string
- *               description: New password to set for the user.
- *           required:
- *               - currentPassword
- *               - newPassword
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
  *         description: Password changed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 access_token:
+ *                   type: string
+ *                 user:
+ *                   $ref: '#/components/schemas/User'
+ *             example:
+ *               message: Password changed successfully
+ *               access_token: jwt.token.here
+ *               user:
+ *                 email: user@example.com
+ *                 fullName: Tom Jerry
+ *                 location: Las Vegas
+ *                 role: user
  *       401:
- *         description: Unauthorized - Invalid credentials
- *       400:
- *         description: Bad Request - Invalid data
+ *         description: Wrong password
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *             example:
+ *               message: Wrong password
+ *       
+ *       500:
+ *         description: Internal server error
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *             example:
+ *               message: Internal server error
  */
-
 
 /**
  * @swagger
@@ -288,22 +316,22 @@
 
 /**
  * @swagger
- * /api/v1/auth/users/delete/{id}:
+ * /api/v1/auth/users/delete/{email}:
  *  delete:
- *     summary: Delete user by id
+ *     summary: Delete user by email
  *     tags: [Authentication]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: email
  *         required: true
- *         description: Id of the user to delete
+ *         description: The email of the user to delete
  *         schema:
  *           type: string
  *     security:
  *       - BearerAuth: []
  *     responses:
  *       200:
- *          description: User deleted successfully
+ *          description: User updated successfully
  *          content:
  *           application/json:
  *             schema:
@@ -333,18 +361,10 @@ authRouter.post("/login", login);
 authRouter.post("/signup", signup);    //removed logger middleware
 authRouter.post("/changepassword", verifyToken ,changePassword);
 
-authRouter.get("/users",All);
+authRouter.get("/users",verifyToken,isAdmin,All);
 authRouter.get('/users/getOne',getUserByAny);
 authRouter.put('/users/update/:id',updateById);
-authRouter.delete('/users/delete/:id',deleteUser)
-
-//handling Invalid url routes
-authRouter.use((req, res) => {
-    res.status(404).json({
-      status: "error",
-      message: "Invalid endpoint. Please check your request."
-    });
-  });
+authRouter.delete('/users/delete/:email',verifyToken,deleteUser)
 
 export default authRouter; 
 

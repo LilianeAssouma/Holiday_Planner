@@ -126,6 +126,9 @@ tourNewsRouter.get('/getElement',getElement)
  *         name: value
  *         schema:
  *            type: string
+ *         
+ *         required: true
+ *         description: The value of the field to search for
  *     responses:
  *       200:
  *         description: Tour found
@@ -253,19 +256,27 @@ tourNewsRouter.post('/create',uploaded,addGallery);
  *         description: Internal server error
  */
 
-tourNewsRouter.put('/update/:tourId',uploaded, updateMany);
+tourNewsRouter.put('/update',uploaded, updateMany);
 /**
  * @swagger
- * /api/v1/tour/update/{tourId}:
+ * /api/v1/tour/update:
  *   put:
  *     summary: Update a tour
  *     tags: [Tours]
  *     description: Update an existing tour.
  *     parameters:
- *       - in: path
- *         name: tourId
+ *       - in: query
+ *         name: fieldName
+ *         schema:
+ *           type: string
  *         required: true
- *         
+ *         description: The field name to identify the tour to update (e.g., "_id" or "destination").
+ *       - in: query
+ *         name: value
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The value of the field to match when identifying the tour.
  *     requestBody:
  *      content:
  *        multipart/form-data:
@@ -315,7 +326,7 @@ tourNewsRouter.put('/update/:tourId',uploaded, updateMany);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/tourData'
+ *               $ref: '#/components/schemas/Tour'
  *       404:
  *         description: Tour not found or update failed
  *         content:

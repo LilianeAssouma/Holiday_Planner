@@ -107,7 +107,7 @@ BookingNewsRouter.post('/create',verifyToken,newBooking);
  *                 message: "Internal server error"
  */
 
-BookingNewsRouter.get('/view',BookAll);
+BookingNewsRouter.get('/view',verifyToken,isAdmin,BookAll);
 /**
  * @swagger
  * /api/v1/booking/view:
