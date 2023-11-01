@@ -18,7 +18,6 @@
  *           type: string
  *         paymentMethod:
  *           type: string
- *         
  *       
  */
 
@@ -59,7 +58,6 @@ BookingNewsRouter.post('/create',verifyToken,newBooking);
  *                   type: boolean
  *                 paymentMethod:
  *                   type: string
- *                 
  *               example:
  *                 tourID: "653768cb34bea818ffa336c3"
  *                 userID: "18ffa336c3"
