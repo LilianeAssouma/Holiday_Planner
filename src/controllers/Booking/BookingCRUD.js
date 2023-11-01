@@ -8,7 +8,7 @@ export const newBooking = async (req, res) => {
     const { paymentMethod,tourID, date, status, numberOfTickets, isPaid } = req.body;
     const userID = req.userId;
 
-    // const user = await User.findById(userID);
+    const user = await User.findById(userID);
 
     // if (!user) {
     //   return res.status(404).json({
@@ -16,13 +16,13 @@ export const newBooking = async (req, res) => {
     //   });
     // };
  
-    // //const tourID = req.tourId;
-    // const tour = await tourData.findById(tourID);
-    // console.log(`Tour ID: ${tourID}`);
+    //const {tourID} = req.params;
+     const tour = await tourData.findById(tourID);
+    console.log(`Tour ID: ${tourID}`);
 
     // if (!tour) {
     //   return res.status(404).json({ message: "Tour not found" });
-    //}
+    // }
 
     const newBooking = new Booking({
       tourID,
@@ -38,8 +38,8 @@ export const newBooking = async (req, res) => {
 
     res.status(201).json({
       message: "Booking successfully created",
-      // user: user,
-      // tour: tour,
+      user: user,
+      tour: tour,
       booking: newBooking,
     });
   } catch (error) {
