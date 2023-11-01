@@ -18,11 +18,12 @@ export const newBooking = async (req, res) => {
     
     const tourID = req.tourId;
     const tour = await tourData.findById(tourID);
-    console.error(`Tour not found for ID: ${tourID}`);
-    // if (!tour) {
-    //   console.error(`Tour not found for ID: ${tourID}`);
-    //   return res.status(404).json({ message: "Tour not found" });
-    // }
+    console.lod(`Tour ID: ${tourID}`);
+
+    if (!tour) {
+      console.error(`Tour not found for ID: ${tourID}`);
+      return res.status(404).json({ message: "Tour not found" });
+    }
 
     const newBooking = new Booking({
       tourID: tour._id,
