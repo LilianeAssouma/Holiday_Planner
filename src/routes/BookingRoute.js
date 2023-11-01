@@ -32,7 +32,7 @@ import { BookAll } from "../controllers/Booking/BookingCRUD.js";
 import { getOneBooking } from "../controllers/Booking/BookingCRUD.js";
 import { isAdmin } from "../middleware/isAdmin.js";
 
-BookingNewsRouter.post('/create',newBooking);
+BookingNewsRouter.post('/create',verifyToken,newBooking);
 /**
  * @swagger
  *   /api/v1/booking/create:

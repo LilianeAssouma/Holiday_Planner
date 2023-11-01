@@ -150,69 +150,41 @@
  *             example:
  *               message: Internal server error
  */
-
 /**
  * @swagger
  * /api/v1/auth/changepassword:
  *   post:
- *     summary: Change user password
+ *     summary: Change Password
  *     tags: 
  *       - Authentication
+ *     description: Change the password of an authenticated user.
  *     security:
- *       - BearerAuth: []
+ *       - bearerAuth: []
  *     requestBody:
- *       description: User creditentials
  *       required: true
  *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/User'
+ *         multipart/form-data:
+ *          schema:
+ *           type: object
+ *           properties:
+ *             currentPassword:
+ *               type: string
+ *               description: Current password of the user.
+ *             newPassword:
+ *               type: string
+ *               description: New password to set for the user.
+ *           required:
+ *               - currentPassword
+ *               - newPassword
  *     responses:
  *       200:
  *         description: Password changed successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                 access_token:
- *                   type: string
- *                 user:
- *                   $ref: '#/components/schemas/User'
- *             example:
- *               message: Password changed successfully
- *               access_token: jwt.token.here
- *               user:
- *                 email: user@example.com
- *                 fullName: Tom Jerry
- *                 location: Las Vegas
- *                 role: user
  *       401:
- *         description: Wrong password
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *             example:
- *               message: Wrong password
- *       
- *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *             example:
- *               message: Internal server error
+ *         description: Unauthorized - Invalid credentials
+ *       400:
+ *         description: Bad Request - Invalid data
  */
+
 
 /**
  * @swagger
@@ -365,6 +337,14 @@ authRouter.get("/users",All);
 authRouter.get('/users/getOne',getUserByAny);
 authRouter.put('/users/update/:id',updateById);
 authRouter.delete('/users/delete/:id',deleteUser)
+
+//handling Invalid url routes
+authRouter.use((req, res) => {
+    res.status(404).json({
+      status: "error",
+      message: "Invalid endpoint. Please check your request."
+    });
+  });
 
 export default authRouter; 
 

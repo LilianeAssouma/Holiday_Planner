@@ -4,6 +4,7 @@ import { User } from "../../models/usermodel.js";
 import { catchAsync } from "../../utils/catchAsync.js";
 import AppError from "../../utils/appError.js";
 
+
 //get all users in the database
 export const All = catchAsync(async(req,res, next)=>{
   let userData = await User.find();
@@ -21,13 +22,13 @@ export const getUserByAny = catchAsync(async (req, res, next) => {              
     query[fieldName] = value;
 
     let userData = await User.findOne(query);
-
-    // if (!userData) {
-    //   return next(new AppError('No user found with that address', 404));
-    // }
+    const error = new AppError("Error message", 404);
     if (!userData) {
-      return res.status(404).json({ error: 'User not found' });
+      return next(new AppError('No user found with that address', 404));
     }
+    // if (!userData) {
+    //   return res.status(404).json({ error: 'User not found' });
+    // }
 
     res.status(200).json(userData);
   
