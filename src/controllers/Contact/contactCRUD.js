@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import { Contact } from "../../models/contactModel.js";
 
-import nodemailer from "nodemailer";
+
 import { transporter } from "../../utils/Creditentials.js"; 
 
 
