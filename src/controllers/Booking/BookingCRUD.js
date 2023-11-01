@@ -5,34 +5,33 @@ import { User } from "../../models/usermodel.js";
 
 export const newBooking = async (req, res) => {
   try {
-    const { paymentMethod, date, status, numberOfTickets } = req.body;
+    const { paymentMethod,tourID, date, status, numberOfTickets, isPaid } = req.body;
     const userID = req.userId;
 
-    const user = await User.findById(userID);
+    // const user = await User.findById(userID);
 
-    if (!user) {
-      return res.status(404).json({
-        message: "User not found",
-      });
-    };
-    
-    const tourID = req.tourId;
-    const tour = await tourData.findById(tourID);
-    console.log(`Tour ID: ${tourID}`);
+    // if (!user) {
+    //   return res.status(404).json({
+    //     message: "User not found",
+    //   });
+    // };
+ 
+    // //const tourID = req.tourId;
+    // const tour = await tourData.findById(tourID);
+    // console.log(`Tour ID: ${tourID}`);
 
-    if (!tour) {
-      console.error(`Tour not found for ID: ${tourID}`);
-      return res.status(404).json({ message: "Tour not found" });
-    }
+    // if (!tour) {
+    //   return res.status(404).json({ message: "Tour not found" });
+    //}
 
     const newBooking = new Booking({
-      tourID: tour._id,
-      userID: user._id,
-      date: date,
-      status: status,
-      numberOfTickets: numberOfTickets,
-      isPaid: false,
-      paymentMethod: paymentMethod,
+      tourID,
+      userID,
+      date,
+      status,
+      numberOfTickets,
+      isPaid,
+      paymentMethod
     });
 
     await newBooking.save();
@@ -74,7 +73,7 @@ export const getOneBooking = async (req, res) => {                        //read
     let BookData = await Booking.findById(id);
 
     if (!BookData) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: 'BookingTour not found' });
     }
 
     res.status(200).json(BookData);

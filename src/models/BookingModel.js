@@ -3,17 +3,14 @@ import mongoose from "mongoose";
 const bookingSchema = new mongoose.Schema({
   tourID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'tourData',                     // Tour model 
-    required: true
+    ref: 'tourData'
   },
   userID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',                              //  the User model
-    required: true
+    ref: 'User'
   },
   date: {
-    type: Date,
-    required: true
+    type: Date
   },
   status: {
     type: String,
@@ -21,8 +18,7 @@ const bookingSchema = new mongoose.Schema({
     default: 'pending'
   },
   numberOfTickets: {
-    type: Number,
-    required: true
+    type: Number
   },
   isPaid: {
     type: Boolean,

@@ -42,28 +42,11 @@
  *     responses:
  *       200:
  *         description: Form submitted successfully.
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Success message indicating the form submission was successful.
+ *        
  *       404:
  *         description: Contact not found.
- *         content:
- *           application/json:
- *             schema:
- *               oneOf:
- *                 - $ref: '#/components/schemas/ErrorContactNotFound'
  *       500:
  *         description: Internal server error.
- *         content:
- *           application/json:
- *             schema:
- *               oneOf:
- *                 - $ref: '#/components/schemas/ErrorInternalServer'
  *
  *   ErrorContactNotFound:
  *     type: object
@@ -83,12 +66,12 @@
 
 
 import express from "express";
+const ContactRouter =express.Router();
 
-import {submitForm} from "../controllers/Contact/contactCRUD.js";
 import { verifyToken } from "../middleware/verifyToken.js";
-import { contactData } from "../controllers/Contact/contactCRUD.js";
-
- const ContactRouter =express.Router();
+import { contactData, deleteContact } from "../controllers/Contact/contactCRUD.js";
+import {submitForm} from "../controllers/Contact/contactCRUD.js";
+ 
 
  ContactRouter.post('/submit',submitForm);
 
@@ -121,4 +104,31 @@ import { contactData } from "../controllers/Contact/contactCRUD.js";
  * 
  */
 
- export default ContactRouter;
+
+
+ContactRouter.delete('/delete/:id',deleteContact);
+/**
+ * @swagger
+ * /api/v1/contact/delete/{Id}:
+ *   delete:
+ *     summary: Delete a contact by ID
+ *     description: Delete an existing contact using its ID
+ *     tags:
+ *       - Contact
+ *     parameters:
+ *       - name: contactId
+ *         in: path
+ *         required: true
+ *         type: string
+ *         description: ID of the contact to delete
+ *     responses:
+ *       200:
+ *         description: Contact deleted successfully
+ *         schema:
+ *           $ref: '#/definitions/Contact'
+ *       404:
+ *         description: Contact not found
+ *       500:
+ *         description: Internal server error
+ */
+export default ContactRouter;
