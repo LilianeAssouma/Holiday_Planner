@@ -5,7 +5,7 @@ import { User } from "../../models/usermodel.js";
 
 export const newBooking = async (req, res) => {
   try {
-    const { paymentMethod, tourID, whoBooked, tourBooked, date, status, numberOfTickets } = req.body;
+    const { paymentMethod, whoBooked, tourBooked, date, status, numberOfTickets } = req.body;
     const userID = req.userId;
 
     const user = await User.findById(userID);
@@ -14,8 +14,9 @@ export const newBooking = async (req, res) => {
       return res.status(404).json({
         message: "User not found",
       });
-    }
-
+    };
+    
+    const tourID = req.tourId;
     const tour = await tourData.findById(tourID);
 
     if (!tour) {

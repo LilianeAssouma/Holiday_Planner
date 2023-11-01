@@ -30,7 +30,6 @@
  *           schema:
  *             type: object
  *             properties:
- *               
  *               email:
  *                 type: string
  *                 description: Email 
