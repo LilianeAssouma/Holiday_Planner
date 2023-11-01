@@ -14,7 +14,7 @@ import mainRouter from "./src/routes/index.js"
 import "dotenv/config";
 
 
-const port= 3000;
+const port= 3001;
 const app = express();
 
 
@@ -48,7 +48,7 @@ const options = {
     },
     servers: [
       {
-        url: "http://localhost:3000/",
+        url: "http://localhost:3001/",
       },
       {url:"https://holiday-planner-4lnj.onrender.com"}
     ],
