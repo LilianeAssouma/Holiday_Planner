@@ -25,6 +25,14 @@
  *           type: string
  *         numberOfTickets:
  *           type: integer
+ *         fullname:
+ *           type: string
+ *         email:
+ *           type: string
+ *         confirmEmail:
+ *           type: string
+ *         phone:
+ *           type: string
  *       
  */
 
@@ -40,7 +48,7 @@ import { getOneBooking } from "../controllers/Booking/BookingCRUD.js";
 import { isAdmin } from "../middleware/isAdmin.js";
 import { uploaded } from "../middleware/multer.js";
 
-BookingNewsRouter.post('/create',verifyToken,newBooking);
+BookingNewsRouter.post('/create',verifyToken,uploaded,newBooking);
 /**
  * @swagger
  * /api/v1/booking/create:
@@ -53,16 +61,23 @@ BookingNewsRouter.post('/create',verifyToken,newBooking);
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               tourID:
  *                 type: string
+ *               fullname:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               confirmEmail:
+ *                 type: string
+ *               phone:
+ *                 type: string
  *               date:
  *                 type: string
  *                 format: date
- * 
  *               paymentMethod:
  *                 type: string
  *               status:

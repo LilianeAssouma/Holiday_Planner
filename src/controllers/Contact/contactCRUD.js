@@ -4,6 +4,8 @@ import { transporter } from "../../utils/Creditentials.js";
 
 export const submitForm = async (req, res) => {
   try {
+    let body = req.body 
+    console.log(body);
     const newContact = await Contact.create(req.body);
 
     if (!newContact) {

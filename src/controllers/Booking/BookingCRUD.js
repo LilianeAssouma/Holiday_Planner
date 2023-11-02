@@ -50,7 +50,7 @@ export const newBooking = async (req, res) => {
       message: "Booking successfully created",
       user: user,
       tour: tour,
-      //booking: newBooking,
+      booking: newBooking,
     });
   } catch (error) {
     console.error("error", error);

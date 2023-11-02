@@ -10,6 +10,10 @@ const bookingSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  fullName: String,  
+  email: String,
+  confirmEmail: String,
+  phone: String,
   date: {
     type: Date
   },
