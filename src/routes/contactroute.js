@@ -26,7 +26,7 @@
  *     requestBody:
  *       required: true
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -56,9 +56,10 @@ const ContactRouter =express.Router();
 import { verifyToken } from "../middleware/verifyToken.js";
 import { contactData, deleteContact } from "../controllers/Contact/contactCRUD.js";
 import {submitForm} from "../controllers/Contact/contactCRUD.js";
+import { uploaded } from "../middleware/multer.js";
 
 
- ContactRouter.post('/submit',submitForm);
+ ContactRouter.post('/submit',uploaded,submitForm);
 
  ContactRouter.get('/',contactData);
 /**
