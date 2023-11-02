@@ -11,32 +11,33 @@ import nodemailer from "nodemailer";
 export const submitForm = async (req, res) => {
   try {
     const { email, message } = req.body;
-    const newContact = await Contact.create({ email, message });
+    const newContact = new Contact({ email, message });
 
-    const mailOptions = {
-      to: newContact.email,
-      from: "lilyanassoum@gmail.com",
-      subject: 'Contact Form Submission',
-      text: `Email: ${email}\nMessage: ${message}`,
-    };
+    // const mailOptions = {
+    //   to: email,
+    //   from: "lilyanassoum@gmail.com",
+    //   subject: 'Contact Form Submission',
+    //   text: `Email: ${email}\nMessage: ${message}`,
+    // };
 
-    // Use async/await with the sendMail function
-    const info = await transporter.sendMail(mailOptions);
+    // // Use async/await with the sendMail function
+    // const info = await transporter.sendMail(mailOptions);
 
-    console.log('Email sent:', info.response);
+    // console.log('Email sent:', info.response);
 
     await newContact.save();
     res.status(200).json({ message: 'Form submitted successfully!' });
   } catch (error) {
-    if (error.code === 11000 && error.keyPattern && error.keyPattern.email === 1) {
-    
-      res.status(400).json({ message: 'Email address is already in use.' });
+    console.error(error);
+
+    if (error.name === 'ValidationError') {
+      res.status(400).json({ message: 'Invalid input. Please check your email and message.' });
     } else {
-      console.error('Form submission error:', error);
-      res.status(500).json({ message: 'Internal server error' });
+      res.status(500).json({ message: 'Internal server error.' });
     }
   }
 };
+
 
 
 // export const submitForm = async (req, res) => {                                     

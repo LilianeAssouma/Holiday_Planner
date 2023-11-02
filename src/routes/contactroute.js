@@ -42,25 +42,10 @@
  *     responses:
  *       200:
  *         description: Form submitted successfully.
- *        
  *       404:
  *         description: Contact not found.
  *       500:
  *         description: Internal server error.
- *
- *   ErrorContactNotFound:
- *     type: object
- *     properties:
- *       error:
- *         type: string
- *         description: Error message indicating the contact was not found.
- *
- *   ErrorInternalServer:
- *     type: object
- *     properties:
- *       message:
- *         type: string
- *         description: Error message indicating an internal server error occurred during form submission.
  */
 
 
@@ -71,7 +56,7 @@ const ContactRouter =express.Router();
 import { verifyToken } from "../middleware/verifyToken.js";
 import { contactData, deleteContact } from "../controllers/Contact/contactCRUD.js";
 import {submitForm} from "../controllers/Contact/contactCRUD.js";
- 
+
 
  ContactRouter.post('/submit',submitForm);
 
