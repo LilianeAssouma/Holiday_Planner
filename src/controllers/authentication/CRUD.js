@@ -64,15 +64,16 @@ export const updateById = async (req, res) => {
 
 //delete users
 export const deleteUser = async (req,res)=>{
-  const email = req.params.email;
-  try {
-    const deletedUser = User.deleteOne({email:email})
+    const { id} = req.params;
+    const deletedIndex = await User.findByIdAndDelete(id);
+    if (!deletedIndex) {
 
-    res.status(200).json({message:`user with email:${email} successfull deleted`});
+      if (!deletedIndex) {
+        
+        return next(new AppError('No user found with that address', 404));
+      }
+      //res.json({ message: 'User not found '} );
+                }
+                res.status(200).json({message:'User successfull deleted'});
+    }
 
-   
-  } catch (error) {
-    console.log("error",error);
-    res.status(409).json ("Internal server errior")
-  }
-}

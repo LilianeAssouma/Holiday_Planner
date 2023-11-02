@@ -9,17 +9,17 @@ export const submitForm = async (req, res) => {
 
     const newContact = await Contact.create({email:email, message:message });
     
-    // const mailOptions = {
-    //   to: email,
-    //   from: "lilyanassoum@gmail.com",
-    //   subject: 'Contact Form Submission',
-    //   text: `Email: ${email}\nMessage: ${message}`,
-    // };
+    const mailOptions = {
+      to: email,
+      from: "lilyanassoum@gmail.com",
+      subject: 'Contact Form Submission',
+      text: `Email: ${email}\nMessage: ${message}`,
+    };
 
-    // // Use async/await with the sendMail function
-    // const info = await transporter.sendMail(mailOptions);
+    // Use async/await with the sendMail function
+    const info = await transporter.sendMail(mailOptions);
 
-    // console.log('Email sent:', info.response);
+    console.log('Email sent:', info.response);
 
     await newContact.save();
     res.status(200).json({ message: 'Form submitted successfully!' });
