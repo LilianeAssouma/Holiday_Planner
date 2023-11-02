@@ -92,18 +92,9 @@ export const getOneBooking = async (req, res) => {
 //update
 export const updateBooking = async (req, res) => {
   const { id } = req.params; 
-  const { status, numberOfTickets, isPaid, paymentMethod } = req.body; 
-
   try {
     const updatedBooking = await Booking.findByIdAndUpdate(
-      id,
-      {
-        status,
-        numberOfTickets,
-        isPaid,
-        paymentMethod,
-      },
-      { new: true } 
+      id, req.body, { new: true } 
     );
 
     if (!updatedBooking) {
@@ -115,5 +106,9 @@ export const updateBooking = async (req, res) => {
   }
 };
 
+
+export const deleteBooking = async (req, res) => {
+
+}
 
 
