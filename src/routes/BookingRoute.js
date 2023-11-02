@@ -33,7 +33,7 @@ import express from "express";
 
 const BookingNewsRouter = express.Router();
 
-import { newBooking } from "../controllers/Booking/BookingCRUD.js";
+import { newBooking, updateBooking } from "../controllers/Booking/BookingCRUD.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { BookAll } from "../controllers/Booking/BookingCRUD.js";
 import { getOneBooking } from "../controllers/Booking/BookingCRUD.js";
@@ -143,5 +143,38 @@ BookingNewsRouter.get('/:id',getOneBooking);
  *         
  *        
  */
+
+
+BookingNewsRouter.put('/update/:id',updateBooking);
+/**
+ * @swagger
+ * /api/v1/booking/{id}:
+ *   get:
+ *     summary: GetOne 
+ *     tags: 
+ *       - Booking
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *            type: string
+ *         
+ *     responses:
+ *       200:
+ *         description: Booking found
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/Booking'
+ *            
+ *       401:
+ *         description: Booking not found
+ *       
+ *       500:
+ *         description: Internal server error
+ *         
+ *        
+ */
+
 
 export default BookingNewsRouter;

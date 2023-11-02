@@ -71,9 +71,8 @@ export const BookAll = async (req, res) => {
   }
 };
 
-//get one booking details
+
 export const getOneBooking = async (req, res) => {
-  //read by element instead of reading by id
 
   try {
     const id = req.params.id;
@@ -89,3 +88,32 @@ export const getOneBooking = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+//update
+export const updateBooking = async (req, res) => {
+  const { id } = req.params; 
+  const { status, numberOfTickets, isPaid, paymentMethod } = req.body; 
+
+  try {
+    const updatedBooking = await Booking.findByIdAndUpdate(
+      id,
+      {
+        status,
+        numberOfTickets,
+        isPaid,
+        paymentMethod,
+      },
+      { new: true } 
+    );
+
+    if (!updatedBooking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+    res.json(updatedBooking);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
