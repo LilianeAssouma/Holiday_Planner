@@ -4,7 +4,13 @@ import { User } from "../../models/usermodel.js";
 import { transporter } from "../../utils/Creditentials.js";
 
 export const newBooking = async (req, res) => {
-  const { paymentMethod, tourID, date, status, numberOfTickets } = req.body;
+  const { paymentMethod, tourID, date, 
+    fullname,
+    email,
+    confirmEmail,
+    phone,
+    status, numberOfTickets 
+  } = req.body;
   const userID = req.userId;
 
   try {
@@ -26,6 +32,10 @@ export const newBooking = async (req, res) => {
     const newBooking = new Booking({
       tourID: tour._id,
       userID: user._id,
+      fullname,
+      email,
+      confirmEmail,
+      phone,
       date,
       status,
       numberOfTickets,
