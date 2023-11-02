@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
-app.use(cors())
+app.use(cors());
 app.use("/api/v1", mainRouter);
 // app.get("/", (req,res)=>{
 //   console.log("Hello world");

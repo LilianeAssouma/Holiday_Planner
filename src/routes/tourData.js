@@ -68,12 +68,6 @@
  *     responses:
  *       200:
  *         description: Successfully retrieved tour data
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/TourData'
  *       401:
  *         description: Unauthorized, missing or invalid authentication token
  *       500:
@@ -213,36 +207,7 @@ tourNewsRouter.post('/create',uploaded,addGallery);
  *     responses:
  *       201:
  *         description: Tour created successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                 tourDetails:
- *                   $ref: '#/components/schemas/tourData'
- *             example:
- *               message: Tours created
- *               tourDetails:
- *                 destination: Example Destination
- *                 Title: Example Tour
- *                 Description: Example Description
- *                 Duration: Example Duration
- *                 GroupSize: Example Group Size
- *                 Price: Example Price
- *                 Discount: Example Discount
- *                 TourType: Example Tour Type
- *                 Departure: Example Departure
- *                 Seats: Example Seats
- *                 fromMonth: Example Start Month
- *                 toMonth: Example End Month
- *                 departureTime: Example Departure Time
- *                 ReturnTime: Example Return Time
- *                 backdropImage: Example Backdrop Image URL
- *                 Gallery:
- *                   - Example Image URL 1
- *                   - Example Image URL 2
+ *             
  *       400:
  *         description: Bad request, missing required parameters
  *       401:

@@ -71,19 +71,6 @@ BookingNewsRouter.post('/create',verifyToken,newBooking);
  *     responses:
  *       201:
  *         description: Booking successfully created
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                 user:
- *                   $ref: '#/definitions/User' # Reference to User object definition
- *                 tour:
- *                   $ref: '#/definitions/tourData' # Reference to Tour object definition
- *                 booking:
- *                   $ref: '#/definitions/Booking' # Reference to Booking object definition
  *       400:
  *         description: Bad request
  *       404:
