@@ -1,49 +1,48 @@
 import { Booking } from "../../models/BookingModel.js";
 import { tourData } from "../../models/TourModel.js";
 import { User } from "../../models/usermodel.js";
-import { transporter } from "../../utils/Creditentials.js"; 
+import { transporter } from "../../utils/Creditentials.js";
 
 export const newBooking = async (req, res) => {
-  try {
-    const { paymentMethod,tourID, date, status, numberOfTickets, isPaid } = req.body;
-    const userID = req.userId;
+  const { paymentMethod, tourID, date, status, numberOfTickets } = req.body;
+  const userID = req.userId;
 
+  try {
     const user = await User.findById(userID);
 
-    // if (!user) {
-    //   return res.status(404).json({
-    //     message: "User not found",
-    //   });
-    // };
- 
-   
-     const tour = await tourData.findById(tourID);
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+    console.log("userId", userID);
 
-
-    // if (!tour) {
-    //   return res.status(404).json({ message: "Tour not found" });
-    // }
+    const tour = await tourData.findById(tourID);
+    if (!tour) {
+      return res.status(404).json({ message: "Tour not found" });
+    }
+    console.log("tourId", tourID);
 
     const newBooking = new Booking({
-      tourID,
-      userID,
+      tourID: tour._id,
+      userID: user._id,
       date,
       status,
       numberOfTickets,
-      isPaid,
+      isPaid: false,
       paymentMethod
     });
 
-    const mailOptions = {
-      from: "lilyanassoum@gmail.com",
-      to: user.email,
-      subject: "Booking Confirmation Message",
-      text: `Hello ${user.fullName},\n\nBooking successfully created! Thank you for booking with us.`,
-    };
+    // const mailOptions = {
+    //   from: "lilyanassoum@gmail.com",
+    //   to: user.email,
+    //   subject: "Booking Confirmation Message",
+    //   text: `Hello ${user.fullName},\n\nBooking successfully created! Thank you for booking with us.`,
+    // };
 
-    console.log("Before sending email");
-    await transporter.sendMail(mailOptions); // Removed the callback, since you're using async/await
-    console.log("After sending email");
+    // console.log("Before sending email");
+    // await transporter.sendMail(mailOptions); // Removed the callback, since you're using async/await
+    // console.log("After sending email");
 
     await newBooking.save();
 
@@ -51,7 +50,7 @@ export const newBooking = async (req, res) => {
       message: "Booking successfully created",
       user: user,
       tour: tour,
-      booking: newBooking,
+      //booking: newBooking,
     });
   } catch (error) {
     console.error("error", error);
@@ -59,38 +58,34 @@ export const newBooking = async (req, res) => {
   }
 };
 
-
-
-
 //get all booking details
-export const BookAll = async(req,res)=>{
+export const BookAll = async (req, res) => {
   try {
     let BookData = await Booking.find();
-    res.status(200).json(BookData ); 
-
+    res.status(200).json(BookData);
   } catch (error) {
-    console.log("error",error);
+    console.log("error", error);
     res.status(409).json({
-      message:"internal server error"
-    })
+      message: "internal server error",
+    });
   }
-}
+};
 
 //get one booking details
-export const getOneBooking = async (req, res) => {                        //read by element instead of reading by id
-  
+export const getOneBooking = async (req, res) => {
+  //read by element instead of reading by id
+
   try {
     const id = req.params.id;
     let BookData = await Booking.findById(id);
 
     if (!BookData) {
-      return res.status(404).json({ error: 'BookingTour not found' });
+      return res.status(404).json({ error: "BookingTour not found" });
     }
 
     res.status(200).json(BookData);
   } catch (error) {
-    console.error("error",error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("error", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-
-}
+};

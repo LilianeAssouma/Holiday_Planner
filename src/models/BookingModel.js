@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
-
+ 
 const bookingSchema = new mongoose.Schema({
   tourID: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'tourData'
+    ref: 'tourData',                     // Tour model 
+    required: true
   },
   userID: {
     type: mongoose.Schema.Types.ObjectId,
