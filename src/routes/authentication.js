@@ -326,12 +326,13 @@ import {updateById} from "../controllers/authentication/CRUD.js";
 
 import {changePassword  } from "../controllers/authentication/changePassword.js";
 import { verifyToken } from "../middleware/verifyToken.js";
+import { uploaded } from "../middleware/multer.js";
 
 const authRouter =express.Router();
 
 authRouter.post("/login", login);
 authRouter.post("/signup", signup);    //removed logger middleware
-authRouter.post("/changepassword", verifyToken ,changePassword);
+authRouter.post("/changepassword", verifyToken ,uploaded,changePassword);
 
 authRouter.get("/users",All);
 authRouter.get('/users/getOne',getUserByAny);

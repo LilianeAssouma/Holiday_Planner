@@ -2,85 +2,42 @@ import express from "express";
 import { Contact } from "../../models/contactModel.js";
 import { transporter } from "../../utils/Creditentials.js"; 
 
-
 export const submitForm = async (req, res) => {
   try {
-    const { email, message } = req.body;
+    const newContact = await Contact.create(req.body);
 
-    const newContact = await Contact.create({email:email, message:message });
-    
+    if (!newContact) {
+      return res.status(400).json({ message: 'Bad Request - Invalid data' });
+    }
+
     const mailOptions = {
-      to: email,
-      from: "lilyanassoum@gmail.com",
+      from: 'lilyanassoum@gmail.com',
+      to: newContact.email,
       subject: 'Contact Form Submission',
-      text: `Email: ${email}\nMessage: ${message}`,
+      text: 'Thank you for reaching out to us!',
     };
 
-    // Use async/await with the sendMail function
-    const info = await transporter.sendMail(mailOptions);
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error('Sending email failed:', error);
+        return res.status(500).json({ message: 'Failed to send email' });
+      } else {
+        console.log('Email sent:', info.response);
 
-    console.log('Email sent:', info.response);
-
-    await newContact.save();
-    res.status(200).json({ message: 'Form submitted successfully!' });
+        // Respond to the client
+        res.status(201).json({
+          message: 'We have received your email and will get back to you as soon as possible.Have a nice day',
+          contact: newContact,
+        });
+      }
+    });
   } catch (error) {
     console.error(error);
-
-    if (error.name === 'ValidationError') {
-      res.status(400).json({ message: 'Invalid input. Please check your email and message.' });
-    } else {
-      console.log('error',error);
-      res.status(500).json({ message: 'Internal server error.' });
-    }
+    res.status(500).json({ message: 'Internal server error' });
   }
 };
 
-
-
-// export const submitForm = async (req, res) => {                                     
-
-//   try {
-
-//     // if (!email) {
-//     //   return res.status(400).json({ error: 'Email is required' });
-//     // }
-
-//     // const existingEmail = await Contact.findOne({ email });
-
-//     // if (!existingEmail) {
-//     //   return res.status(401).json({ error: 'Email not found' });
-//     // }
-//     const {  message,email } = req.body;
-//     //const email = req.body.email; 
-
-//     console.log(' email:', email);
-
-//     const newContact = await Contact.create({  email, message });
-
-//     const mailOptions = {
-//       to: newContact.email,
-//       from: "lilyanassoum@gmail.com" ,
-//       subject: 'Contact Form Submission',
-//       text: `Email: ${email}\nMessage: ${message}`,
-//     };
-
-//     transporter.sendMail(mailOptions, (error, info) => {
-//       if (error) {
-//         console.error('Email error:', error);
-//       } else {
-//         console.log('Email sent:', info.response);
-//       }
-//     });
-
-//     res.status(200).json({ message: 'Form submitted successfully!' });
-//   } catch (error) {
-//   console.error('Form submission error:', error);
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// };
-
-
-  
 
 export const deleteContact = async (req, res) => {
   try {
