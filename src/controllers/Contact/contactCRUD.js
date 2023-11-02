@@ -1,18 +1,14 @@
 import express from "express";
-import bodyParser from "body-parser";
 import { Contact } from "../../models/contactModel.js";
-
-
 import { transporter } from "../../utils/Creditentials.js"; 
-import nodemailer from "nodemailer";
-
 
 
 export const submitForm = async (req, res) => {
   try {
     const { email, message } = req.body;
-    const newContact = new Contact({ email, message });
 
+    const newContact = await Contact.create({email:email, message:message });
+    
     // const mailOptions = {
     //   to: email,
     //   from: "lilyanassoum@gmail.com",
@@ -33,6 +29,7 @@ export const submitForm = async (req, res) => {
     if (error.name === 'ValidationError') {
       res.status(400).json({ message: 'Invalid input. Please check your email and message.' });
     } else {
+      console.log('error',error);
       res.status(500).json({ message: 'Internal server error.' });
     }
   }
