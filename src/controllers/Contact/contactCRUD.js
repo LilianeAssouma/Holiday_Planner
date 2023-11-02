@@ -1,6 +1,6 @@
 import express from "express";
 import { Contact } from "../../models/contactModel.js";
-import { transporter } from "../../utils/Creditentials.js"; 
+import { transporter } from "../../utils/Creditentials.js";
 
 export const submitForm = async (req, res) => {
   try {
@@ -17,21 +17,30 @@ export const submitForm = async (req, res) => {
       text: 'Thank you for reaching out to us!',
     };
 
-    // Send the email
+    let replied = false;
+
+    // Send the email and wait for a reply
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error('Sending email failed:', error);
         return res.status(500).json({ message: 'Failed to send email' });
       } else {
         console.log('Email sent:', info.response);
-
-        // Respond to the client
-        res.status(201).json({
-          message: 'We have received your email and will get back to you as soon as possible.Have a nice day',
-          contact: newContact,
-        });
+        replied = true;
       }
     });
+
+    // Wait for a reply for 1 minute
+    setTimeout(() => {
+      if (replied) {
+        res.status(201).json({
+          message: 'We have received your email and will get back to you as soon as possible. Have a nice day',
+          contact: newContact,
+        });
+      } else {
+        res.status(500).json({ message: 'Did not receive a reply within 1 minute' });
+      }
+    }, 60000); // 1 minute (in milliseconds)
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
