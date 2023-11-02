@@ -40,26 +40,21 @@ export const getUserByAny = async (req, res) => {                        //read 
 
 //update users by email
 export const updateById = async (req, res) => {
+  const { id } = req.params; 
   try {
-    const id = req.params.id;
-    const updatedFields = req.body;
-
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: id }, 
-      { $set: updatedFields },
-      { new: true }
+    const updatedUser = await User.findByIdAndUpdate(
+      id, req.body, { new: true } 
     );
 
     if (!updatedUser) {
       return res.status(404).json({ error: 'User not found' });
     }
-    
-    return res.status(200).json(updatedUser);
+    res.json(updatedUser);
   } catch (error) {
-    console.error("Error updating user:", error.message);
-    return res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
 
 
 //delete users

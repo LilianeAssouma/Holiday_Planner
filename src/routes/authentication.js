@@ -18,14 +18,14 @@
  *           type: string
  *         location:
  *           type: string
- *       
+ *
  */
 /**
  * @swagger
  * /api/v1/auth/signup:
  *   post:
  *     summary: Register a new user
- *     tags: 
+ *     tags:
  *       - Authentication
  *     requestBody:
  *       description: User object
@@ -85,7 +85,7 @@
  * /api/v1/auth/login:
  *   post:
  *     summary: User login
- *     tags: 
+ *     tags:
  *       - Authentication
  *     requestBody:
  *       description: User creditentials
@@ -155,7 +155,7 @@
  * /api/v1/auth/changepassword:
  *   post:
  *     summary: Change Password
- *     tags: 
+ *     tags:
  *       - Authentication
  *     description: Change the password of an authenticated user.
  *     security:
@@ -185,13 +185,12 @@
  *         description: Bad Request - Invalid data
  */
 
-
 /**
  * @swagger
  * /api/v1/auth/users:
  *   get:
  *     summary: Get all users
- *     tags: 
+ *     tags:
  *       - Authentication
  *     security:
  *       - BearerAuth: []
@@ -204,14 +203,14 @@
  *               type: array
  *               items:
  *                   $ref: '#/components/schemas/User'
- *       
+ *
  *       409:
  *         description: Unauthorized, token is missing or invalid
  *       403:
  *         description: Forbidden, the user does not have permission
  *       500:
  *         description: Internal server error
- * 
+ *
  */
 
 /**
@@ -219,7 +218,7 @@
  * /api/v1/auth/users/getOne:
  *   get:
  *     summary: Get user by field value
- *     tags: 
+ *     tags:
  *       - Authentication
  *     parameters:
  *       - in: query
@@ -232,7 +231,7 @@
  *         name: value
  *         schema:
  *            type: string
- *         
+ *
  *         required: true
  *         description: The value of the field to search for
  *     responses:
@@ -242,55 +241,53 @@
  *           application/json:
  *             schema:
  *                $ref: '#/components/schemas/User'
- *            
+ *
  *       401:
  *         description: User not found
- *       
+ *
  *       500:
  *         description: Internal server error
- *        
+ *
  */
 
 /**
  * @swagger
- * /api/v1/auth/users/update/{email}:
+ * /api/v1/auth/users/update/{id}:
  *   put:
- *     summary: Update user by email
+ *     summary: Update user by Id
  *     tags:
  *       - Authentication
+ *     security:
+ *       - bearerAuth: []
+ *     description: Update an existing User by ID.
  *     parameters:
  *       - in: path
- *         name: email
+ *         name: id
  *         required: true
- *         description: The email of the user to update
  *         schema:
  *           type: string
- *       - in: body
- *         name: user
- *         required: true
- *         description: Updated user object
- *         schema:
- *           $ref: '#/components/schemas/User'
+ *         description: The ID of the user to update.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
  *         description: User updated successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       400:
- *         description: Bad request, invalid input
  *       404:
  *         description: User not found
- *       500:
- *         description: Internal server error
+ *       400:
+ *         description: Bad request
  */
+
 
 /**
  * @swagger
  * /api/v1/auth/users/delete/{id}:
  *  delete:
- *     summary: Delete user by id
+ *     summary: Delete user by Id
  *     tags: [Authentication]
  *     parameters:
  *       - in: path
@@ -316,36 +313,34 @@
 import express from "express";
 import { isAdmin } from "../middleware/isAdmin.js";
 
-import { login} from "../controllers/authentication/login.js";
+import { login } from "../controllers/authentication/login.js";
 import { signup } from "../controllers/authentication/signup.js";
 
 import { All, deleteUser } from "../controllers/authentication/CRUD.js";
-import {getUserByAny} from "../controllers/authentication/CRUD.js";
-import {updateById} from "../controllers/authentication/CRUD.js";
+import { getUserByAny } from "../controllers/authentication/CRUD.js";
+import { updateById } from "../controllers/authentication/CRUD.js";
 
-
-import {changePassword  } from "../controllers/authentication/changePassword.js";
+import { changePassword } from "../controllers/authentication/changePassword.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { uploaded } from "../middleware/multer.js";
 
-const authRouter =express.Router();
+const authRouter = express.Router();
 
 authRouter.post("/login", login);
-authRouter.post("/signup", signup);    //removed logger middleware
-authRouter.post("/changepassword", verifyToken ,uploaded,changePassword);
+authRouter.post("/signup", signup); //removed logger middleware
+authRouter.post("/changepassword", verifyToken, uploaded, changePassword);
 
-authRouter.get("/users",All);
-authRouter.get('/users/getOne',getUserByAny);
-authRouter.put('/users/update/:id',updateById);
-authRouter.delete('/users/delete/:id',deleteUser)
+authRouter.get("/users", All);
+authRouter.get("/users/getOne", getUserByAny);
+authRouter.put("/users/update/:id", uploaded,updateById);
+authRouter.delete("/users/delete/:id", deleteUser);
 
 //handling Invalid url routes
 authRouter.use((req, res) => {
-    res.status(404).json({
-      status: "error",
-      message: "Invalid endpoint. Please check your request."
-    });
+  res.status(404).json({
+    status: "error",
+    message: "Invalid endpoint. Please check your request.",
   });
+});
 
-export default authRouter; 
-
+export default authRouter;
