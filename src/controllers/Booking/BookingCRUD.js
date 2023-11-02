@@ -1,7 +1,7 @@
 import { Booking } from "../../models/BookingModel.js";
 import { tourData } from "../../models/TourModel.js";
 import { User } from "../../models/usermodel.js";
-
+import { transporter } from "../../utils/Creditentials.js"; 
 
 export const newBooking = async (req, res) => {
   try {
@@ -16,9 +16,9 @@ export const newBooking = async (req, res) => {
     //   });
     // };
  
-    //const {tourID} = req.params;
+   
      const tour = await tourData.findById(tourID);
-    console.log(`Tour ID: ${tourID}`);
+
 
     // if (!tour) {
     //   return res.status(404).json({ message: "Tour not found" });
@@ -33,6 +33,17 @@ export const newBooking = async (req, res) => {
       isPaid,
       paymentMethod
     });
+
+    const mailOptions = {
+      from: "lilyanassoum@gmail.com",
+      to: user.email,
+      subject: "Booking Confirmation Message",
+      text: `Hello ${user.fullName},\n\nBooking successfully created! Thank you for booking with us.`,
+    };
+
+    console.log("Before sending email");
+    await transporter.sendMail(mailOptions); // Removed the callback, since you're using async/await
+    console.log("After sending email");
 
     await newBooking.save();
 

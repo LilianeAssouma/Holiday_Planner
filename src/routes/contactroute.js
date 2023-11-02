@@ -87,7 +87,7 @@ import {submitForm} from "../controllers/Contact/contactCRUD.js";
  *       - BearerAuth: []
  *     responses:
  *       200:
- *         description: List of users
+ *         description: List of contact
  *         content:
  *           application/json:
  *             schema:
@@ -108,15 +108,15 @@ import {submitForm} from "../controllers/Contact/contactCRUD.js";
 
 ContactRouter.delete('/delete/:id',deleteContact);
 /**
- * @swagger
- * /api/v1/contact/delete/{Id}:
+* @swagger
+ * /api/v1/contact/delete/{id}:
  *   delete:
  *     summary: Delete a contact by ID
  *     description: Delete an existing contact using its ID
  *     tags:
  *       - Contact
  *     parameters:
- *       - name: contactId
+ *       - name: id
  *         in: path
  *         required: true
  *         type: string
