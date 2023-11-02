@@ -79,7 +79,7 @@ export const getOneBooking = async (req, res) => {
     let BookData = await Booking.findById(id);
 
     if (!BookData) {
-      return res.status(404).json({ error: "BookingTour not found" });
+      return res.status(404).json({ error: "Tour booked not found" });
     }
 
     res.status(200).json(BookData);
@@ -108,7 +108,22 @@ export const updateBooking = async (req, res) => {
 
 
 export const deleteBooking = async (req, res) => {
+  const { id } = req.params; 
+  try {
+    const deletedBooking = await Booking.findByIdAndDelete(id);
 
-}
+    if (!deletedBooking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+    res.json({
+      message: "Booking successfully deleted",
+      deletedBooking
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
 
 

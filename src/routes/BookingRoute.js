@@ -33,7 +33,7 @@ import express from "express";
 
 const BookingNewsRouter = express.Router();
 
-import { newBooking, updateBooking } from "../controllers/Booking/BookingCRUD.js";
+import { deleteBooking, newBooking, updateBooking } from "../controllers/Booking/BookingCRUD.js";
 import { verifyToken } from "../middleware/verifyToken.js";
 import { BookAll } from "../controllers/Booking/BookingCRUD.js";
 import { getOneBooking } from "../controllers/Booking/BookingCRUD.js";
@@ -127,23 +127,15 @@ BookingNewsRouter.get('/:id',getOneBooking);
  *         name: id
  *         schema:
  *            type: string
- *         
  *     responses:
  *       200:
  *         description: Booking found
- *         content:
- *           application/json:
- *             schema:
- *                $ref: '#/components/schemas/Booking'
- *            
  *       401:
  *         description: Booking not found
- *       
  *       500:
  *         description: Internal server error
- *         
- *        
  */
+
 
 
 BookingNewsRouter.put('/update/:id',uploaded,updateBooking);
@@ -186,7 +178,31 @@ BookingNewsRouter.put('/update/:id',uploaded,updateBooking);
  *         description: Bad request
  */
 
-  
+BookingNewsRouter.delete('/delete/:id',uploaded,deleteBooking);
+/**
+ * @swagger
+ * /api/v1/booking/delete/{id}:
+ *   delete:
+ *     summary: Delete a booking by ID
+ *     tags: [Booking]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the booking to delete.
+ *     responses:
+ *       200:
+ *         description: Successful operation. 
+ *       404:
+ *         description: Booking not found.
+ *       500:
+ *         description: Internal Server Error.
+ */
+
+// Your deleteBooking function goes here
+
 
 
 export default BookingNewsRouter;
