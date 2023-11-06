@@ -32,6 +32,8 @@ const bookingSchema = new mongoose.Schema({
   paymentMethod: {
     String
   }
+
+
 });
 
 export const Booking = mongoose.model('Booking', bookingSchema);
