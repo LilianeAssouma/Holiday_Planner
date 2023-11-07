@@ -63,7 +63,7 @@ export const newBooking = async (req, res) => {
       booking: newBooking,
     });
   } catch (error) {
-    console.error("error", error);
+    console.log("error", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };

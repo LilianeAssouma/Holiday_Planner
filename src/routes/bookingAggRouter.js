@@ -1,53 +1,40 @@
 import express from "express";
 
- import {getBookingsCountInMonth} from "../controllers/Booking/numberOfBooking.js";
+ import {getBookingsCount} from "../controllers/Booking/numberOfBooking.js";
 
 const bookingCountRouter = express.Router();
   
- bookingCountRouter.get('/count',getBookingsCountInMonth);
+ bookingCountRouter.get('/count',getBookingsCount);
 /**
  * @swagger
  *   /api/v1/count:
  *     get:
- *       summary: Get the number of bookings made in a specific month
+ *       summary: Get the number of bookings made in a specific year
  *       tags:
  *         - Booking
  *       parameters:
  *         - name: year
  *           in: query
- *           description: Year of the month
+ *           description: Year for which bookings are to be counted
  *           required: true
- *           schema:
- *             type: integer
- *         - name: month
- *           in: query
- *           description: Month (1-12)
  *           schema:
  *             type: integer
  *       responses:
  *         '200':
- *           description: Number of bookings made in the specified month
+ *           description: Number of bookings made in the specified year
  *           content:
  *             application/json:
  *               schema:
- *                 type: object
- *                 properties:
- *                   message:
- *                     type: string
- *                   bookings:
- *                     type: array
- *                     items:
- *                       type: object
- *                       properties:
- *                         _id:
- *                           type: string
- *                           description: The month in YYYY-MM format
- *                         month:
- *                           type: string
- *                           description: The month abbreviation (e.g., Jan, Feb, etc.)
- *                         count:
- *                           type: integer
- *                           description: Number of bookings made in the specific month
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     label:
+ *                       type: string
+ *                       description: The month name (e.g., January, February, etc.)
+ *                     count:
+ *                       type: integer
+ *                       description: Number of bookings made in the specific month
  *         '500':
  *           description: Internal Server Error
  *           content:
@@ -58,6 +45,7 @@ const bookingCountRouter = express.Router();
  *                   error:
  *                     type: string
  */
+
 
 
   
