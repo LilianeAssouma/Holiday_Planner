@@ -1,1 +1,1 @@
-export * from './paypack'
+export * from './paypack';
