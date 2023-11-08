@@ -66,18 +66,7 @@ export const deleteContact = async (req, res) => {
   }
 };
 
-// export const contactData = async(req,res)=>{
-//   try {
-//     let Data = await Contact.find();
-//     res.status(200).json(Data ); 
 
-//   } catch (error) {
-//     console.log("error",error);
-//     res.status(409).json({
-//       message:"internal server error"
-//     })
-//   }
-// }
 
 export const contactData = async (req,res)=>{
   try {
