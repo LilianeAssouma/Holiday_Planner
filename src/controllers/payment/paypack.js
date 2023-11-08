@@ -41,19 +41,19 @@ export const cashOut = async (req,res) =>{
   
 }
 //Transactions
-export const transactions = async (req,res)=> {
-  await paypack
-  .transactions({
-    offset: 0,
-    limit: 100
-  })
-  .then((response) => {
-    console.log(res.data);
-    res.status(200).json({data: response.data})
+// export const transactions = async (req,res)=> {
+//   await paypack
+//   .transactions({
+//     offset: 0,
+//     limit: 100
+//   })
+//   .then((response) => {
+//     console.log(res.data);
+//     res.status(200).json({data: response.data})
     
-  })
-  .catch((err) => {
-    console.log(err);
-    return res.status(500).json("internal server error");
-  });
-}
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//     return res.status(500).json("internal server error");
+//   });
+// }

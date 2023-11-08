@@ -101,7 +101,7 @@ paymentRouter.post("/cashout",cashOut);
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 
-paymentRouter.get("/trans",transactions);
+//paymentRouter.get("/trans",transactions);
 /**
  * @swagger
  * /api/v1/payment/trans:
