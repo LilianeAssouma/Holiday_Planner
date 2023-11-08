@@ -2,18 +2,30 @@
 import { User } from "../../models/usermodel.js";
 
 //get all users in the database
-export const All = async(req,res)=>{
+export const All = async (req,res)=>{
   try {
-    let userData = await User.find();
-    res.status(200).json(userData); 
-
-  } catch (error) {
+    const users = await User.aggregate([
+      {
+        $group:{
+          _id: null,
+          totalUsers: { $sum: 1},      // count number of users
+         userDetails: {$push: "$$ROOT"}      //fetching users details
+        }
+      }
+    ]);
+    res.status(200).json({
+      totalUsers: users[0].totalUsers,
+      userDetails: users[0].userDetails
+    })
+    }
+   catch (error) {
     console.log("error",error);
-    res.status(409).json({
-      message:"internal server error"
+    res.status(500).json({
+      message: "Internal server error"
     })
   }
-}
+  }
+
 
 //find one user in the database by email
 export const getUserByAny = async (req, res) => {                        //read by element instead of reading by id

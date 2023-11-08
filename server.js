@@ -7,7 +7,9 @@ import swaggerUI from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 
 import mainRouter from "./src/routes/index.js"
+//const paymentRouter = require("./paymentRouter");
 import "dotenv/config";
+
 
 
 const port= 3001;
@@ -19,6 +21,9 @@ app.use(bodyParser.json());
 
 app.use(cors());
 app.use("/api/v1", mainRouter);
+//app.use("/", paymentRouter);
+
+
 // app.get("/", (req,res)=>{
 //   console.log("Hello world");
 //   res.status(200).json({
