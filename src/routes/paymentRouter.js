@@ -25,7 +25,7 @@ const express = require("express");
 
 const paymentRouter = express.Router();
 
-paymentRouter.post("/cashin", cashIn);
+//paymentRouter.post("/cashin", cashIn);
 
 /**
  * @swagger
@@ -63,7 +63,7 @@ paymentRouter.post("/cashin", cashIn);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-paymentRouter.post("/cashout",cashOut);
+//paymentRouter.post("/cashout",cashOut);
 /**
  * @swagger
  * /api/v1/payment/cashout:
