@@ -1,28 +1,42 @@
 import {tourData} from "../../models/TourModel.js";
 
 
-export const getAll = async (req,res)=>{
-try {
-  const tours = await tourData.aggregate([
-    {
-      $group:{
-        _id: null,
-        totalTours: { $sum: 1},      // count number of tours
-       data: {$push: "$$ROOT"}      //fetching tour details
-      }
-    }
-  ]);
-  res.status(200).json({
-    totalTours: tours[0].totalTours,
-    data: tours[0].data
-  })
+// export const getAll = async (req,res)=>{
+// try {
+//   const tours = await tourData.aggregate([
+//     {
+//       $group:{
+//         _id: null,
+//         totalTours: { $sum: 1},      // count number of tours
+//        data: {$push: "$$ROOT"}      //fetching tour details
+//       }
+//     }
+//   ]);
+//   res.status(200).json({
+//     totalTours: tours[0].totalTours,
+//     data: tours[0].data
+//   })
+//   }
+//  catch (error) {
+//   console.log("error",error);
+//   res.status(500).json({
+//     message: "Internal server error"
+//   })
+// }
+// }
+
+export const getAll = async(req,res)=>{
+  try {
+    let details = await tourData.find();
+    res.status(200).json(details); 
+
+  } catch (error) {
+    console.log("error",error);
+    res.status(409).json({
+      message:"internal server error"
+    })
   }
- catch (error) {
-  console.log("error",error);
-  res.status(500).json({
-    message: "Internal server error"
-  })
-}
+
 }
 
 
