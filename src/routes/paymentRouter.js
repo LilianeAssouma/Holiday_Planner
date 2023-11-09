@@ -20,12 +20,12 @@
  *           description: Error message
  */
 import { cashIn, cashOut, transactions } from "../controllers/payment/paypack.js";
+import express from "express";
 
-const express = require("express");
 
 const paymentRouter = express.Router();
 
-//paymentRouter.post("/cashin", cashIn);
+paymentRouter.post("/cashin", cashIn);
 
 /**
  * @swagger
@@ -63,7 +63,8 @@ const paymentRouter = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-//paymentRouter.post("/cashout",cashOut);
+
+paymentRouter.post("/cashout",cashOut);
 /**
  * @swagger
  * /api/v1/payment/cashout:
@@ -101,7 +102,7 @@ const paymentRouter = express.Router();
  *               $ref: '#/components/schemas/ErrorResponse'
  */
 
-//paymentRouter.get("/trans",transactions);
+paymentRouter.get("/trans",transactions);
 /**
  * @swagger
  * /api/v1/payment/trans:
