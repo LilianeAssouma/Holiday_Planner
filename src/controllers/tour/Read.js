@@ -8,13 +8,13 @@ try {
       $group:{
         _id: null,
         totalTours: { $sum: 1},      // count number of tours
-       tourDetails: {$push: "$$ROOT"}      //fetching tour details
+       data: {$push: "$$ROOT"}      //fetching tour details
       }
     }
   ]);
   res.status(200).json({
     totalTours: tours[0].totalTours,
-    tourDetails: tours[0].tourDetails
+    data: tours[0].data
   })
   }
  catch (error) {

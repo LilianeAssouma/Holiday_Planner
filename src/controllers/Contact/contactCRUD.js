@@ -67,27 +67,38 @@ export const deleteContact = async (req, res) => {
 };
 
 
-
-export const contactData = async (req,res)=>{
+export const contactData = async(req,res)=>{
   try {
-    const contact = await Contact.aggregate([
-      {
-        $group:{
-          _id: null,
-          totalContact: { $sum: 1},      // count number of contact
-         contactDetails: {$push: "$$ROOT"}      //fetching contact details
-        }
-      }
-    ]);
-    res.status(200).json({
-      totalContact: contact[0].totalContact,
-      contactDetails: contact[0].contactDetails
-    })
-    }
-   catch (error) {
+    let Data = await Contact.find();
+    res.status(200).json(Data ); 
+
+  } catch (error) {
     console.log("error",error);
-    res.status(500).json({
-      message: "Internal server error"
+    res.status(409).json({
+      message:"internal server error"
     })
   }
-  }
+}
+// export const contactData = async (req,res)=>{
+//   try {
+//     const contact = await Contact.aggregate([
+//       {
+//         $group:{
+//           _id: null,
+//           totalContact: { $sum: 1},      // count number of contact
+//          contactDetails: {$push: "$$ROOT"}      //fetching contact details
+//         }
+//       }
+//     ]);
+//     res.status(200).json({
+//       totalContact: contact[0].totalContact,
+//       contactDetails: contact[0].contactDetails
+//     })
+//     }
+//    catch (error) {
+//     console.log("error",error);
+//     res.status(500).json({
+//       message: "Internal server error"
+//     })
+//   }
+//   }
